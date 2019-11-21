@@ -3,9 +3,18 @@
 
 ## Installation
 
+First, get your public ssh key from here:
 ```
-git clone https://git.uwaterloo.ca/a5-mll/raiinet.git
+cat ~/.ssh/id_rsa.pub
 ```
+Take the output of that command, and copy paste it into the textbox under `Gitlab User Settings > SSH Keys > Add an SSH Key`. Hit the submit button.
+
+
+Then, go into `~/cs246` and run the command:
+```
+git clone ist-git@git.uwaterloo.ca:a5-mll/raiinet.git
+```
+This will create a folder at `~/cs246/raiinet` with all of the project shtuff.
 
 # Running
 
