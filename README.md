@@ -9,7 +9,7 @@ git clone https://git.uwaterloo.ca/a5-mll/raiinet.git
 
 # Running
 
-``
+```
 make
 ./raiinet
 ```
