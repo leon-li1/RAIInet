@@ -2,7 +2,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     cout << "hi" << endl;
     cout << "salam alaikum" << endl;
 }
