@@ -1,18 +1,19 @@
 #ifndef LINK_H
 #define LINK_H
 #include "piece.h"
+#include <string>
 
 enum class Direction;
 
 class Link : public Piece
 {
     int strength;
-    int speed;
+    std::string type;
 
 public:
-    virtual void notify(Subject &whoFrom) = 0;
-    virtual void move(Direction direction) = 0;
-    virtual void setSpeed(int speed) = 0;
+    void move(Direction direction);
+    void setSpeed(int speed);
+    std::string getType() override;
 };
 
 #endif

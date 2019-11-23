@@ -14,6 +14,7 @@ enum class Direction
 
 class Piece;
 class Ability;
+class InvalidAbility{};
 
 class Player
 {
@@ -25,11 +26,11 @@ class Player
 
 public:
     void move(std::string pieceName, Direction direction);
-    bool owns(std::string pieceName);
-    void addPiece(Piece *piece);
+    bool owns(Piece *piece);
+    void addPiece(std::string pieceName, Piece *piece);
     Piece *gePiece(std::string pieceName);
+    void removePiece(Piece *piece);
     void download(Piece *piece);
-    void remove(Piece *piece);
     void useAbility(int ability);
     void addKnownPiece(std::string pieceName, std::string info);
 };
