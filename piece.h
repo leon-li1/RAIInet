@@ -6,7 +6,7 @@
 #include <utility>
 
 class Player;
-class InvalidMove{};
+class InvalidMove;
 
 class Piece : public Observer, public Subject
 {

@@ -3,7 +3,8 @@
 #include "ability.h"
 #include "point.h"
 
-void Player::move(std::string pieceName, Direction direction) {
+void Player::move(std::string pieceName, Direction direction)
+{
 
     Piece *thePiece = pieces[pieceName];
     Point newPos = thePiece->getPos();
@@ -59,29 +60,34 @@ void Player::download(Piece *piece)
     else // type is "data"
         ++dataCount;
 
-    if (this == piece->getOwner()) {
+    if (this == piece->getOwner())
+    {
         for (auto &p : pieces)
         {
             if (p.second == piece)
                 pieces.erase(p.first);
         }
-    } else {
-        Player * otherPlayer = piece->getOwner;
+    }
+    else
+    {
+        Player *otherPlayer = piece->getOwner;
         otherPlayer->removePiece(piece);
     }
 
     // do I need to do anything else?
 }
 
-void Player::useAbility(int ability) {
-    
+void Player::useAbility(int ability)
+{
+
     if (!abilities[ability])
         throw InvalidAbility{};
-        
+
     abilities[ability]->use();
     abilities[ability] = nullptr;
 }
 
-void Player::addKnownPiece(std::string pieceName, std::string info) {
+void Player::addKnownPiece(std::string pieceName, std::string info)
+{
     knownPieces[pieceName] = info;
 }

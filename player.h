@@ -14,7 +14,7 @@ enum class Direction
 
 class Piece;
 class Ability;
-class InvalidAbility{};
+class InvalidAbility;
 
 class Player
 {
