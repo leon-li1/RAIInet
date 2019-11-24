@@ -1,9 +1,255 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <exception>
+#include <sstream>
+#include "player.h"
+#include "invalidAbility.h"
+#include "invalidMove.h"
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-    cout << "hi" << endl;
-    cout << "salam alaikum" << endl;
+    int i = 0;
+    while (i < argc)
+    {
+        string command = argv[i];
+        if (command == "-ability1" || command == "-ability2")
+        { 
+            //This is to keep track of how many of each ability has been taken
+            //When we load abilites in, if any player tries to take more than 2 game will throw error
+            map<char, int> abilityCount;
+            abilityCount['L'] = 0;
+            abilityCount['F'] = 0;
+            abilityCount['D'] = 0;
+            abilityCount['S'] = 0;
+            abilityCount['P'] = 0;
+            
+            string a = argv[i+1];
+            if ((int)a.length() != 5) {
+                cerr << "Error: You must take 5 abilities" << endl;
+                return 1;
+            }
+            for (int j = 0; j < (int)a.length(); j++)
+            {
+                //check what each ability is a display for now, eventually we will add to abilities array
+                if (a[j] == 'L') {
+                    abilityCount['L']++;
+                    if (abilityCount['L'] >= 3) {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "link boost ";
+                    if (command == "-ability1") {
+                        cout << "to player 1 in position " << j+1 << endl;
+                        //p1->abilities.emplace_back(new Linkboost{});
+                    } else if (command == "-ability2") {
+                        cout << "to player 2 in position " << j+1 << endl;
+                        //p2->abilities.emplace_back(new Linkboost{});
+                    }
+                } else if (a[j] == 'F') {
+                    abilityCount['F']++;
+                    if (abilityCount['F'] >= 3) {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "firewall ";
+                    if (command == "-ability1") {
+                        cout << "to player 1 in position " << j+1 << endl;
+                        //p1->abilities.emplace_back(new FirewallAbility{});
+                    } else if (command == "-ability2") {
+                        cout << "to player 2 in position " << j+1 << endl;
+                        //p2->abilities.emplace_back(new FirewallAbility{});
+                    }
+                } else if (a[j] == 'D') {
+                    abilityCount['D']++;
+                    if (abilityCount['D'] >= 3) {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "download ";
+                    if (command == "-ability1") {
+                        cout << "to player 1 in position " << j+1 << endl;
+                        //p1->abilities.emplace_back(new Download{});
+                    } else if (command == "-ability2") {
+                        cout << "to player 2 in position " << j+1 << endl;
+                        //p2->abilities.emplace_back(new Download{});
+                    }
+                } else if (a[j] == 'S') {
+                    abilityCount['S']++;
+                    if (abilityCount['S'] >= 3) {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "scan ";
+                    if (command == "-ability1") {
+                        cout << "to player 1 in position " << j+1 << endl;
+                        //p1->abilities.emplace_back(new Scan{});
+                    } else if (command == "-ability2") {
+                        cout << "to player 2 in position " << j+1 << endl;
+                        //p2->abilities.emplace_back(new Scan{});
+                    }
+                } else if (a[j] == 'P') {
+                    abilityCount['P']++;
+                    if (abilityCount['P'] >= 3) {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "polarize ";
+                    if (command == "-ability1") {
+                        cout << "to player 1 in position " << j+1 << endl;
+                        //p1->abilities.emplace_back(new Polarize{});
+                    } else if (command == "-ability2") {
+                        cout << "to player 2 in position " << j+1 << endl;
+                        //p2->abilities.emplace_back(new Polarize{});
+                    }
+                } else {
+                    cerr << "Invalid ability taken" << endl;
+                    return 1;
+                }
+                //If more abilities are added, they will be checked for here
+             }
+            i++;
+        } else if (command == "-link1" || command == "-link2") {
+            string l = argv[i+1];
+            char which;
+            if (command == "-link1") which = 'a';
+            else if (command == "-link2") which = 'A';
+
+            for (int j = 0; j < (int)l.length(); j++) {
+                if (l[j] == 'D') {
+                    int strength = l[j+1] - '0';
+                    if (command == "-link1") {
+                        cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
+                        //p1->pieces[string{1, which}] = new Data{strength, 1, "data"};
+                    } else if (command == "-link2") {
+                        cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
+                        //p2->pieces[string{1, which}] = new Data{strength, 1, "data"};
+                    }
+                    which++;
+                    j++;
+                } else if (l[j] == 'V') {
+                    int strength = l[j+1] - '0';
+                    if (command == "-link1") {
+                        cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
+                        //p1->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
+                    } else if (command == "-link2") {
+                        cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
+                        //p2->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
+                    }
+                    which++;
+                    j++;
+                }
+            }
+            i++;
+        } else if (command == "-graphics") {
+            cout << "fancy graphics enabled" << endl;
+            //g = new GraphicsDisplay{};
+        }
+
+
+        i++;
+    }
+
+    cout << "done loading stuff from command line" << endl << endl;
+
+    string command;
+    ifstream inFile{};
+    string turn = "p1";
+    string mode = "cin";
+    while (true) {
+        if (inFile.eof()) mode = "cin";
+
+        if (mode == "cin") cin >> command;
+        else if (mode == "sequence") inFile >> command;
+
+        if (command == "move") {
+            string which;
+            string direction;
+            if (mode == "cin") {
+                cin >> which;
+                cin >> direction;
+            } else if (mode == "sequence") {
+                inFile >> which;
+                inFile >> direction;
+            }
+
+            Direction d;
+            if (direction == "up") {
+                d = Direction::Up;
+            } else if (direction == "down") {
+                d = Direction::Down;
+            } else if (direction == "left") {
+                d = Direction::Left;
+            } else if (direction == "right") {
+                d = Direction::Right;
+            }
+
+            try {
+                if (turn == "p1") {
+                    if (d == Direction::Up){}
+                    //p1->move(which, d);
+                } else if (turn == "p2") {
+                    //p2->move(which, d);
+                }
+            } catch (InvalidMove) {
+                cout << "Invalid Move" << endl;
+                continue;
+            }
+
+            turn = (turn == "p1") ? "p2" : "p1";
+            cout << "moving " << which << " in direction " << direction << endl;
+        } else if (command == "abilities") {
+            //g->printAbilities();
+            cout << "abilites will be printed" << endl;
+        } else if (command == "ability") {
+            int which;
+            if (mode == "cin") {
+                cin >> which;
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore();
+                    cerr << "Invalid ability" << endl;
+                    continue;
+                }
+            } else if (mode == "sequence") {
+                inFile >> which;
+                if (inFile.fail()) {
+                    inFile.clear();
+                    inFile.ignore();
+                    cerr << "Invalid ability" << endl;
+                    continue;
+                }
+            }
+            
+            if (which < 1 || which > 5) {
+                cout << "Invalid ability" << endl;
+                continue;
+            }
+            try {
+                if (turn == "p1") {
+                    //p1->useAbility(which-1);
+                    cout << "Player 1 used ability " << which << endl;
+                } else if (turn == "p2") {
+                    //p2->useAbility(which-1);
+                    cout << "Player 2 used ability " << which << endl;
+                }
+            } catch (InvalidAbility) {
+                cout << "Ability already used" << endl;
+                continue;
+            }
+        } else if (command == "board") {
+            //g->update();
+            cout << "board will be printed here" << endl;
+        } else if (command == "sequence") {
+            if (inFile.is_open()) inFile.close();
+            string file;
+            cin >> file;
+            inFile.open(file);
+            mode = "sequence";
+        } else if (command == "quit") {
+            break;
+        }
+    }
 }
