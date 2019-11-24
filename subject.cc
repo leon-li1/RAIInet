@@ -5,9 +5,13 @@ void Subject::attach(Observer *o)
     observers.emplace_back(o);
 }
 
-void Subject::dettach(Observer *o)
+void Subject::detach(Observer *o)
 {
-    //observers.emplace_back(o);
+    for (auto &ob : observers)
+    {
+        if (ob == o)
+            observers.erase(ob);
+    }
 }
 
 void Subject::notifyObservers()

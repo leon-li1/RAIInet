@@ -10,7 +10,7 @@ class Subject
 
 public:
     void attach(Observer *o);
-    void dettach(Observer *o);
+    void detach(Observer *o);
     void notifyObservers();
 };
 

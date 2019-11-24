@@ -42,6 +42,7 @@
         "clocale": "cpp",
         "cwctype": "cpp",
         "iostream": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "deque": "cpp"
     }
 }
