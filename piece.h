@@ -15,11 +15,13 @@ class Piece : public Observer, public Subject
     Player *owner;
 
 public:
+    Piece(int speed, Point pos, Player *owner);
     void setPos(Point newPos);
     Point getPos();
     Player *getOwner();
     int getSpeed();
     void setSpeed(int speed);
+    virtual std::string getInfo() = 0;
 };
 
 #endif

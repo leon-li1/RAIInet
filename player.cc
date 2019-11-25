@@ -39,9 +39,11 @@ void Player::addPiece(std::string pieceName, Piece *piece)
     pieces[pieceName] = piece;
 }
 
-Piece *Player::gePiece(std::string pieceName)
-{
-    return pieces[pieceName];
+std::string Player::getPieceName(Piece *piece) {
+    for (auto &p : pieces) {
+        if (&(p.second) == piece) return p.first;
+    }
+    return "";
 }
 
 void Player::removePiece(Piece *piece)

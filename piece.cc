@@ -2,6 +2,8 @@
 #include "piece.h"
 #include "board.h"
 
+Piece::Piece(int speed, Point pos, Player *owner) : speed{speed}, pos{pos}, owner{owner} {}
+
 void Piece::setPos(Point newPos) {
     Point oldPos = pos;
     if (owner->adjacentEdge->isPassed(newPos)) {

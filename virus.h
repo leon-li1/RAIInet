@@ -5,9 +5,11 @@
 class Virus: public Piece {
     int strength;
 public:
-    void notify(Subject &whoFrom);
+    Virus(int speed, Point pos, Player *owner, int strength);
+    void notify(Subject &whoFrom) override;
     void setStrength(int strength);
     int getStrength();
+    std::string getInfo() override;
 };
 
 #endif

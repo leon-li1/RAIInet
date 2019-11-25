@@ -30,7 +30,7 @@ public:
     void move(std::string pieceName, Direction direction);
     bool owns(Piece *piece);
     void addPiece(std::string pieceName, Piece *piece);
-    Piece *gePiece(std::string pieceName);
+    std::string getPieceName(Piece *piece);
     void removePiece(Piece *piece);
     void download(Virus *virus);
     void download(Data *data);
