@@ -55,29 +55,40 @@ void Player::removePiece(Piece *piece)
     }
 }
 
-void Player::download(Piece *piece)
+void Player::download(Data *piece)
 {
-    if (piece->getType() == "virus")
-        ++virusCount;
-    else // type is "data"
         ++dataCount;
 
     if (this == piece->getOwner())
     {
-        for (auto &p : pieces)
-        {
-            if (p.second == piece)
-                pieces.erase(p.first);
-        }
+        removePiece(piece);
     }
+
     else
     {
         Player *otherPlayer = piece->getOwner;
         otherPlayer->removePiece(piece);
     }
 
-    // do I need to do anything else?
 }
+
+void Player::download(Virus *piece)
+{
+        ++virusCount;
+
+    if (this == piece->getOwner())
+    {
+        removePiece(piece);
+    }
+
+    else
+    {
+        Player *otherPlayer = piece->getOwner;
+        otherPlayer->removePiece(piece);
+    }
+
+}
+
 
 void Player::useAbility(int ability)
 {
