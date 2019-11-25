@@ -4,6 +4,7 @@
 #include <exception>
 #include <sstream>
 #include "player.h"
+#include "direction.h"
 #include "invalidAbility.h"
 #include "invalidMove.h"
 
@@ -117,9 +118,22 @@ int main(int argc, char *argv[])
             if (command == "-link1") which = 'a';
             else if (command == "-link2") which = 'A';
 
+            //We need to keep track of which links user has selected to make sure they don't take
+            //  too many links or two of the same link
+            map<string, int> linkCount;
+            linkCount["D1"] = 0;
+            linkCount["D2"] = 0;
+            linkCount["D3"] = 0;
+            linkCount["D4"] = 0;
+            linkCount["V1"] = 0;
+            linkCount["V2"] = 0;
+            linkCount["V3"] = 0;
+            linkCount["V4"] = 0;
+
             for (int j = 0; j < (int)l.length(); j++) {
                 if (l[j] == 'D') {
                     int strength = l[j+1] - '0';
+                    linkCount["D" + to_string(strength)]++;
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
                         //p1->pieces[string{1, which}] = new Data{strength, 1, "data"};
@@ -131,6 +145,7 @@ int main(int argc, char *argv[])
                     j++;
                 } else if (l[j] == 'V') {
                     int strength = l[j+1] - '0';
+                    linkCount["V" + to_string(strength)]++;
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
                         //p1->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
@@ -142,6 +157,15 @@ int main(int argc, char *argv[])
                     j++;
                 }
             }
+            int totalLinks = 0;
+            for (auto &p : linkCount) {
+                totalLinks++;
+                if (p.second != 1 || totalLinks > 8) {
+                    cerr << "Invalid link setup, you must use each of D1, D2, D3, D4, V1, V2, V3, V4 exactly once." << endl;
+                    return 1;
+                }
+            }
+
             i++;
         } else if (command == "-graphics") {
             cout << "fancy graphics enabled" << endl;

@@ -2,7 +2,7 @@
 #define EDGE_H
 
 #include "point.h"
-#include "player.h"
+#include "direction.h"
 
 class Edge
 {

@@ -1,21 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "edge.h"
 #include <map>
 #include <vector>
 #include <string>
-
-enum class Direction
-{
-    Up,
-    Down,
-    Left,
-    Right
-};
+#include "edge.h"
 
 class Piece;
 class Ability;
 class InvalidAbility;
+class Virus;
+class Data;
 
 class Player
 {

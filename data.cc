@@ -6,7 +6,7 @@ Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{speed, pos
 
 void Data::notify(Piece &whoFrom)
 {
-    if (whoFrom->getPos() == getPos())
+    if (whoFrom.getPos() == getPos())
     {
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
