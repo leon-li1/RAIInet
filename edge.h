@@ -4,16 +4,14 @@
 #include "point.h"
 #include "player.h"
 
-
-class Edge{
-    Point p1;
-    Point p2;
+class Edge
+{
     Direction dir;
 
     Public:
-        Edge(Point, Point, Point);
-        ~Edge();
-        bool isPassed(Point);
-}
+    Edge(Direction);
+    ~Edge();
+    bool isPassed(Point);
+};
 
 #endif

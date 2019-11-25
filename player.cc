@@ -10,13 +10,13 @@ void Player::move(std::string pieceName, Direction direction)
     Point newPos = thePiece->getPos();
 
     if (direction == Direction::Up)
-        newPos.y -= thePiece->speed;
+        newPos.y -= thePiece->getSpeed();
     else if (direction == Direction::Down)
-        newPos.y += thePiece->speed;
+        newPos.y += thePiece->getSpeed();
     else if (direction == Direction::Left)
-        newPos.x -= thePiece->speed;
+        newPos.x -= thePiece->getSpeed();
     else // direction is right
-        newPos.x += thePiece->speed;
+        newPos.x += thePiece->getSpeed();
 
     thePiece->setPos(newPos);
 
@@ -55,7 +55,7 @@ void Player::removePiece(Piece *piece)
 
 void Player::download(Piece *piece)
 {
-    if (piece->getType == "virus")
+    if (piece->getType() == "virus")
         ++virusCount;
     else // type is "data"
         ++dataCount;

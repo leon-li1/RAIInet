@@ -15,10 +15,11 @@ class Piece : public Observer, public Subject
     Player *owner;
 
 public:
-    virtual void setPos(Point newPos) = 0;
-    virtual Point getPos() = 0;
-    virtual std::string getType() = 0;
+    void setPos(Point newPos);
+    Point getPos();
     Player *getOwner();
+    int getSpeed();
+    void setSpeed(int speed);
 };
 
 #endif

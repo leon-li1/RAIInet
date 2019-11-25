@@ -1,5 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "edge.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -23,6 +24,7 @@ class Player
     int dataCount;
     int virusCount;
     std::map<std::string, std::string> knownPieces;
+    Edge adjacentEdge;
 
 public:
     void move(std::string pieceName, Direction direction);
