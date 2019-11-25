@@ -1,6 +1,9 @@
 #ifndef VIRUS_H
 #define VIRUS_H
+#include <string>
 #include "piece.h"
+
+class InvalidMove;
 
 class Virus: public Piece {
     int strength;

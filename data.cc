@@ -13,11 +13,11 @@ void Data::notify(Subject &whoFrom) {
             //Reveal this piece to other player
             whoFrom.getOwner()->addKnownPiece(owner->getPieceName(this), getInfo());
             //Reveal other player's piece to this player
-            owner->addKnownPiece(whoFrom.getOwner()->)
+            owner->addKnownPiece(whoFrom.getOwner()->getPieceName(&whoFrom), whoFrom.getInfo());
 
             //Winner downloads the other player's link
             if (strength > other.strength) {
-                owner->download(whoFrom);
+                owner->download(&whoFrom);
             } else if (strength < other.strength) {
                 whoFrom.getOwner()->download(*this);
             } else { //Tie, so player initiating wins
