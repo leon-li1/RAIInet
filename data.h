@@ -3,6 +3,8 @@
 #include <string>
 #include "piece.h"
 
+class InvalidMove;
+
 class Data : public Piece
 {
     int strength;
