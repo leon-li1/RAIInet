@@ -8,7 +8,7 @@ class Edge
 {
     Direction dir;
 
-    Public:
+    public:
     Edge(Direction);
     ~Edge();
     bool isPassed(Point);

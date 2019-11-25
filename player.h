@@ -32,7 +32,8 @@ public:
     void addPiece(std::string pieceName, Piece *piece);
     Piece *gePiece(std::string pieceName);
     void removePiece(Piece *piece);
-    void download(Piece *piece);
+    void download(Virus *virus);
+    void download(Data *data);
     void useAbility(int ability);
     void addKnownPiece(std::string pieceName, std::string info);
 };

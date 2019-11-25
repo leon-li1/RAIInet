@@ -3,9 +3,11 @@
 
 #include "point.h"
 
-class Board{
-    Public:
-        //usage: Board::isInside({0, 3})
-        static bool isInside(Point);
-}
+class Board
+{
+public:
+    //usage: Board::isInside({0, 3})
+    static bool isInside(Point);
+};
+
 #endif
