@@ -8,9 +8,10 @@ class InvalidMove;
 class Data : public Piece
 {
     int strength;
+
 public:
     Data(int speed, Point pos, Player *owner, int strength);
-    void notify(Subject &whoFrom) override;
+    void notify(Piece &whoFrom) override;
     void setStrength(int strength);
     int getStrength();
     std::string getInfo() override;

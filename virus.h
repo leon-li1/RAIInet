@@ -5,11 +5,13 @@
 
 class InvalidMove;
 
-class Virus: public Piece {
+class Virus : public Piece
+{
     int strength;
+
 public:
     Virus(int speed, Point pos, Player *owner, int strength);
-    void notify(Subject &whoFrom) override;
+    void notify(Piece &whoFrom) override;
     void setStrength(int strength);
     int getStrength();
     std::string getInfo() override;

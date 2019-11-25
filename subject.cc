@@ -1,4 +1,5 @@
 #include "subject .h"
+#include "observer.h"
 
 void Subject::attach(Observer *o)
 {
@@ -7,10 +8,10 @@ void Subject::attach(Observer *o)
 
 void Subject::detach(Observer *o)
 {
-    for (auto &ob : observers)
+    for (int i = 0; i < observers.size(); ++i)
     {
-        if (ob == o)
-            observers.erase(ob);
+        if (observers[i] == o)
+            observers.erase(observers.begin() + i);
     }
 }
 
@@ -18,4 +19,8 @@ void Subject::notifyObservers()
 {
     for (auto &ob : observers)
         ob->notify(*this);
+}
+
+Subject::~Subject() {
+    
 }

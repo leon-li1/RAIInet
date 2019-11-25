@@ -5,7 +5,7 @@
 class Firewall : public Piece
 {
 public:
-    void notify(Subject &whoFrom);
+    void notify(Piece &whoFrom) override;
 };
 
 #endif

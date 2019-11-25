@@ -12,6 +12,7 @@ public:
     void attach(Observer *o);
     void detach(Observer *o);
     void notifyObservers();
+    virtual ~Subject() = 0;
 };
 
 #endif

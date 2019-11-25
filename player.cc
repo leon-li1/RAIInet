@@ -2,6 +2,9 @@
 #include "piece.h"
 #include "ability.h"
 #include "point.h"
+#include "data.h"
+#include "virus.h"
+#include "invalidAbility.h"
 
 void Player::move(std::string pieceName, Direction direction)
 {
@@ -39,9 +42,12 @@ void Player::addPiece(std::string pieceName, Piece *piece)
     pieces[pieceName] = piece;
 }
 
-std::string Player::getPieceName(Piece *piece) {
-    for (auto &p : pieces) {
-        if (&(p.second) == piece) return p.first;
+std::string Player::getPieceName(Piece *piece)
+{
+    for (auto &p : pieces)
+    {
+        if (p.second == piece)
+            return p.first;
     }
     return "";
 }
@@ -57,7 +63,7 @@ void Player::removePiece(Piece *piece)
 
 void Player::download(Data *piece)
 {
-        ++dataCount;
+    ++dataCount;
 
     if (this == piece->getOwner())
     {
@@ -69,12 +75,11 @@ void Player::download(Data *piece)
         Player *otherPlayer = piece->getOwner;
         otherPlayer->removePiece(piece);
     }
-
 }
 
 void Player::download(Virus *piece)
 {
-        ++virusCount;
+    ++virusCount;
 
     if (this == piece->getOwner())
     {
@@ -86,9 +91,7 @@ void Player::download(Virus *piece)
         Player *otherPlayer = piece->getOwner;
         otherPlayer->removePiece(piece);
     }
-
 }
-
 
 void Player::useAbility(int ability)
 {
