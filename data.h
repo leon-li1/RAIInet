@@ -1,11 +1,14 @@
 #ifndef DATA_H
 #define DATA_H
-#include "link.h"
+#include "piece.h"
 
-class Data : public Link
+class Data : public Piece
 {
+    int strength;
 public:
     void notify(Subject &whoFrom);
+    void setStrength(int strength);
+    int getStrength();
 };
 
 #endif
