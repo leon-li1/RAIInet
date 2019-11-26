@@ -21,6 +21,7 @@ class Player
     Edge adjacentEdge;
 
 public:
+    Player(Direction dir);
     void move(std::string pieceName, Direction direction);
     bool owns(Piece *piece);
     void addPiece(std::string pieceName, Piece *piece);

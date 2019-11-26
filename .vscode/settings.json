@@ -43,6 +43,8 @@
         "cwctype": "cpp",
         "iostream": "cpp",
         "system_error": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "cstdarg": "cpp",
+        "map": "cpp"
     }
 }

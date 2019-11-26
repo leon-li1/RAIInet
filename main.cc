@@ -7,11 +7,20 @@
 #include "direction.h"
 #include "invalidAbility.h"
 #include "invalidMove.h"
+#include "data.h"
+#include "virus.h"
+#include "point.h"
+#include "serverport.h"
 
 using namespace std;
 
 int main (int argc, char *argv[])
 {
+
+    // Create the players
+    Player p1{Direction::Down};
+    Player p2{Direction::Up};
+
     int i = 0;
 
     // Loop through arguments
@@ -134,16 +143,23 @@ int main (int argc, char *argv[])
             linkCount["V3"] = 0;
             linkCount["V4"] = 0;
 
+            int y = 0;
+
             for (int j = 0; j < (int) l.length(); ++j) {
+                
                 if (l[j] == 'D') {
+
+                    // Scale strength to 1-4
                     int strength = l[j+1] - '0';
+                    
                     ++linkCount["D" + to_string(strength)];
+                
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
-                        //p1->pieces[string{1, which}] = new Data{strength, 1, "data"};
+                        p1.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength});
                     } else if (command == "-link2") {
                         cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
-                        //p2->pieces[string{1, which}] = new Data{strength, 1, "data"};
+                        p2.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength});
                     }
                     ++which;
                     ++j;
@@ -152,10 +168,10 @@ int main (int argc, char *argv[])
                     ++linkCount["V" + to_string(strength)];
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
-                        //p1->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
+                        p1.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength});
                     } else if (command == "-link2") {
                         cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
-                        //p2->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
+                        p2.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength});
                     }
                     ++which;
                     ++j;
@@ -181,6 +197,12 @@ int main (int argc, char *argv[])
         ++i;
     }
 
+    // Create serverports
+    p1.addPiece("S1", new Serverport{Point{3, 7}, &p1, 0});
+    p1.addPiece("S2", new Serverport{Point{4, 7}, &p1, 0});
+    p2.addPiece("S1", new Serverport{Point{3, 0}, &p2, 0});
+    p2.addPiece("S2", new Serverport{Point{4, 0}, &p2, 0});
+
     cout << "done loading stuff from command line" << endl << endl;
 
     //We need default arguments for ability LFDSP and links V1V2V3V4D1D2D3D4
@@ -189,7 +211,9 @@ int main (int argc, char *argv[])
     ifstream inFile{};
     string turn = "p1";
     string mode = "cin";
+    
     while (true) {
+
         if (inFile.eof()) mode = "cin";
 
         if (mode == "cin") cin >> command;

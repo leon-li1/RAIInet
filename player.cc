@@ -6,6 +6,8 @@
 #include "virus.h"
 #include "invalidAbility.h"
 
+Player::Player(Direction dir) : dataCount{0}, virusCount{0}, adjacentEdge{Edge{dir}} {}
+
 void Player::move(std::string pieceName, Direction direction)
 {
 
