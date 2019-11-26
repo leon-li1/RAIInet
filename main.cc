@@ -10,16 +10,19 @@
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int main (int argc, char *argv[])
 {
     int i = 0;
+
+    // Loop through arguments
     while (i < argc)
     {
         string command = argv[i];
+
         if (command == "-ability1" || command == "-ability2")
         { 
             //This is to keep track of how many of each ability has been taken
-            //When we load abilites in, if any player tries to take more than 2 game will throw error
+            //When we load abilites in, if any player tries to take more than 2, game will throw an error
             map<char, int> abilityCount;
             abilityCount['L'] = 0;
             abilityCount['F'] = 0;
@@ -28,11 +31,12 @@ int main(int argc, char *argv[])
             abilityCount['P'] = 0;
             
             string a = argv[i+1];
-            if ((int)a.length() != 5) {
+            if ((int) a.length() != 5) {
                 cerr << "Error: You must take 5 abilities" << endl;
                 return 1;
             }
-            for (int j = 0; j < (int)a.length(); j++)
+
+            for (int j = 0; j < 5; ++j)
             {
                 //check what each ability is a display for now, eventually we will add to abilities array
                 if (a[j] == 'L') {
@@ -111,7 +115,7 @@ int main(int argc, char *argv[])
                 }
                 //If more abilities are added, they will be checked for here
              }
-            i++;
+            ++i;
         } else if (command == "-link1" || command == "-link2") {
             string l = argv[i+1];
             char which;
@@ -130,10 +134,10 @@ int main(int argc, char *argv[])
             linkCount["V3"] = 0;
             linkCount["V4"] = 0;
 
-            for (int j = 0; j < (int)l.length(); j++) {
+            for (int j = 0; j < (int) l.length(); ++j) {
                 if (l[j] == 'D') {
                     int strength = l[j+1] - '0';
-                    linkCount["D" + to_string(strength)]++;
+                    ++linkCount["D" + to_string(strength)];
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
                         //p1->pieces[string{1, which}] = new Data{strength, 1, "data"};
@@ -141,11 +145,11 @@ int main(int argc, char *argv[])
                         cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
                         //p2->pieces[string{1, which}] = new Data{strength, 1, "data"};
                     }
-                    which++;
-                    j++;
+                    ++which;
+                    ++j;
                 } else if (l[j] == 'V') {
                     int strength = l[j+1] - '0';
-                    linkCount["V" + to_string(strength)]++;
+                    ++linkCount["V" + to_string(strength)];
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
                         //p1->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
@@ -153,10 +157,11 @@ int main(int argc, char *argv[])
                         cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
                         //p2->pieces[string{1, which}] = new Virus{strength, 1, "virus"};
                     }
-                    which++;
-                    j++;
+                    ++which;
+                    ++j;
                 }
             }
+
             int totalLinks = 0;
             for (auto &p : linkCount) {
                 totalLinks++;
@@ -166,17 +171,19 @@ int main(int argc, char *argv[])
                 }
             }
 
-            i++;
+            ++i;
         } else if (command == "-graphics") {
             cout << "fancy graphics enabled" << endl;
             //g = new GraphicsDisplay{};
         }
 
 
-        i++;
+        ++i;
     }
 
     cout << "done loading stuff from command line" << endl << endl;
+
+    //We need default arguments for ability LFDSP and links V1V2V3V4D1D2D3D4
 
     string command;
     ifstream inFile{};
