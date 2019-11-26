@@ -27,10 +27,10 @@ public:
     void addPiece(std::string pieceName, Piece *piece);
     std::string getPieceName(Piece *piece);
     void removePiece(Piece *piece);
-    void download(Virus *virus);
-    void download(Data *data);
+    void download(Piece *piece);
     void useAbility(int ability);
     void addKnownPiece(std::string pieceName, std::string info);
+    Edge getEdge();
 
     friend class Graphics;
     friend class TextDisplay;

@@ -63,36 +63,12 @@ void Player::removePiece(Piece *piece)
     }
 }
 
-void Player::download(Data *piece)
+void Player::download(Piece *piece)
 {
-    ++dataCount;
+    if (piece->getInfo()[0] == 'D') dataCount++;
+    else if (piece->getInfo()[0] == 'V') virusCount++;
 
-    if (this == piece->getOwner())
-    {
-        removePiece(piece);
-    }
-
-    else
-    {
-        Player *otherPlayer = piece->getOwner;
-        otherPlayer->removePiece(piece);
-    }
-}
-
-void Player::download(Virus *piece)
-{
-    ++virusCount;
-
-    if (this == piece->getOwner())
-    {
-        removePiece(piece);
-    }
-
-    else
-    {
-        Player *otherPlayer = piece->getOwner;
-        otherPlayer->removePiece(piece);
-    }
+    piece->getOwner()->removePiece(piece);
 }
 
 void Player::useAbility(int ability)
@@ -108,4 +84,8 @@ void Player::useAbility(int ability)
 void Player::addKnownPiece(std::string pieceName, std::string info)
 {
     knownPieces[pieceName] = info;
+}
+
+Edge Player::getEdge() {
+    return adjacentEdge;
 }

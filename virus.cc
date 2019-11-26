@@ -1,10 +1,11 @@
 #include "virus.h"
 #include "point.h"
 #include "invalidMove.h"
+#include "player.h"
 
-Virus::Virus(int speed, Point pos, Player *owner, int strength) : Piece{speed, pos, owner}, strength{strength} {}
+Virus::Virus(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner}, strength{strength}, speed{speed} {}
 
-void Virus::notify(Piece &whoFrom)
+void Virus::notify(Subject &whoFrom)
 {
     if (whoFrom.getPos() == getPos())
     {
@@ -16,22 +17,22 @@ void Virus::notify(Piece &whoFrom)
         {
             //Reveal info about each piece
             //Reveal this piece to other player
-            whoFrom.getOwner()->addKnownPiece(owner->getPieceName(this), getInfo());
+            whoFrom.getOwner()->addKnownPiece(getOwner()->getPieceName(this), getInfo());
             //Reveal other player's piece to this player
-            getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName(&whoFrom), whoFrom.getInfo());
+            getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName((Piece *)&whoFrom), whoFrom.getInfo());
 
             //Winner downloads the other player's link
-            if (strength > other.strength)
+            if (strength > whoFrom.getStrength())
             {
-                getOwner()->download(&whoFrom);
+                getOwner()->download((Piece *)&whoFrom);
             }
-            else if (strength < other.strength)
+            else if (strength < whoFrom.getStrength())
             {
-                whoFrom.getOwner()->download(*this);
+                whoFrom.getOwner()->download(this);
             }
             else
             { //Tie, so player initiating wins
-                whoFrom.getOwner()->download(*this);
+                whoFrom.getOwner()->download(this);
             }
         }
     }
@@ -47,7 +48,18 @@ int Virus::getStrength()
     return strength;
 }
 
+void Virus::setSpeed(int speed)
+{
+    this->speed = speed;
+}
+
+int Virus::getSpeed()
+{
+    return speed;
+}
+
 std::string Virus::getInfo()
 {
     return "V" + std::to_string(strength);
 }
+

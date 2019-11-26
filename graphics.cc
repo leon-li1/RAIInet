@@ -1,3 +1,3 @@
 #include "graphics.h"
 
-Graphics::Graphics(std::vector<Player *> players)) : players{players} {}
+Graphics::Graphics(std::vector<Player *> players) : players{players} {}

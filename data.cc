@@ -1,10 +1,11 @@
 #include <string>
 #include "data.h"
 #include "invalidMove.h"
+#include "player.h"
 
-Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{speed, pos, owner}, strength{strength} {}
+Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner}, strength{strength}, speed{speed} {}
 
-void Data::notify(Piece &whoFrom)
+void Data::notify(Subject &whoFrom)
 {
     if (whoFrom.getPos() == getPos())
     {
@@ -16,22 +17,22 @@ void Data::notify(Piece &whoFrom)
         {
             //Reveal info about each piece
             //Reveal this piece to other player
-            whoFrom.getOwner()->addKnownPiece(owner->getPieceName(this), getInfo());
+            whoFrom.getOwner()->addKnownPiece(getOwner()->getPieceName(this), getInfo());
             //Reveal other player's piece to this player
-            getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName(&whoFrom), whoFrom.getInfo());
+            getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName((Piece *)&whoFrom), whoFrom.getInfo());
 
             //Winner downloads the other player's link
-            if (strength > other.strength)
+            if (strength > whoFrom.getStrength())
             {
-                getOwner()->download(&whoFrom);
+                getOwner()->download((Piece *)&whoFrom);
             }
-            else if (strength < other.strength)
+            else if (strength < whoFrom.getStrength())
             {
-                whoFrom.getOwner()->download(*this);
+                whoFrom.getOwner()->download(this);
             }
             else
             { //Tie, so player initiating wins
-                whoFrom.getOwner()->download(*this);
+                whoFrom.getOwner()->download(this);
             }
         }
     }
@@ -45,6 +46,16 @@ void Data::setStrength(int strength)
 int Data::getStrength()
 {
     return strength;
+}
+
+void Data::setSpeed(int speed)
+{
+    this->speed = speed;
+}
+
+int Data::getSpeed()
+{
+    return speed;
 }
 
 std::string Data::getInfo()

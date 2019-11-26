@@ -7,8 +7,8 @@
 class Serverport : public Piece
 {
 public:
-    Serverport(Point pos, Player *owner, int speed);
-    void notify(Piece &whoFrom) override;
+    Serverport(Point pos, Player *owner);
+    void notify(Subject &whoFrom) override;
     std::string getInfo() override;
 };
 

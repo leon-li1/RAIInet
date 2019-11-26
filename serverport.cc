@@ -1,10 +1,11 @@
 #include "serverport.h"
 #include "piece.h"
 #include "invalidMove.h"
+#include "player.h"
 
-Serverport::Serverport(Point pos, Player *owner, int speed) : Piece{speed, pos, owner} {}
+Serverport::Serverport(Point pos, Player *owner) : Piece{pos, owner} {}
 
-void Serverport::notify(Piece &whoFrom)
+void Serverport::notify(Subject &whoFrom)
 {
 
     // if its your piece, invalid move

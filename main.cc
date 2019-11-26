@@ -143,8 +143,6 @@ int main (int argc, char *argv[])
             linkCount["V3"] = 0;
             linkCount["V4"] = 0;
 
-            int y = 0;
-
             for (int j = 0; j < (int) l.length(); ++j) {
                 
                 if (l[j] == 'D') {
@@ -198,10 +196,10 @@ int main (int argc, char *argv[])
     }
 
     // Create serverports
-    p1.addPiece("S1", new Serverport{Point{3, 7}, &p1, 0});
-    p1.addPiece("S2", new Serverport{Point{4, 7}, &p1, 0});
-    p2.addPiece("S1", new Serverport{Point{3, 0}, &p2, 0});
-    p2.addPiece("S2", new Serverport{Point{4, 0}, &p2, 0});
+    p1.addPiece("S1", new Serverport{Point{3, 7}, &p1});
+    p1.addPiece("S2", new Serverport{Point{4, 7}, &p1});
+    p2.addPiece("S1", new Serverport{Point{3, 0}, &p2});
+    p2.addPiece("S2", new Serverport{Point{4, 0}, &p2});
 
     cout << "done loading stuff from command line" << endl << endl;
 

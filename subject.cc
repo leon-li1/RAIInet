@@ -8,7 +8,7 @@ void Subject::attach(Observer *o)
 
 void Subject::detach(Observer *o)
 {
-    for (int i = 0; i < observers.size(); ++i)
+    for (int i = 0; i < (int)observers.size(); ++i)
     {
         if (observers[i] == o)
             observers.erase(observers.begin() + i);

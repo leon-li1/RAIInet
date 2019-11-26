@@ -1,16 +1,26 @@
 #include <exception>
 #include "piece.h"
-#include "board.h"
+#include "player.h"
+#include "invalidMove.h"
 
-Piece::Piece(int speed, Point pos, Player *owner) : speed{speed}, pos{pos}, owner{owner} {}
+Piece::Piece(Point pos, Player *owner) : pos{pos}, owner{owner} {}
+
+bool isInside(Point p) {
+    if (p.x >= 0 && p.x <= 8) {
+        if (p.y >= 0 && p.x <= 8) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void Piece::setPos(Point newPos) {
     Point oldPos = pos;
-    if (owner->adjacentEdge->isPassed(newPos)) {
-            owner->download(*this);
+    if (owner->getEdge().isPassed(newPos)) {
+            owner->download(this);
             return;
     }
-    if (!Board::isInside(newPos)) {
+    if (!isInside(newPos)) {
         throw InvalidMove{};
         return;
     }
@@ -31,10 +41,14 @@ Player *Piece::getOwner() {
     return owner;
 }
 
+void Piece::setSpeed(int speed) {}
+
 int Piece::getSpeed() {
-    return speed;
+    return 0;
 }
 
-void Piece::setSpeed(int speed) {
-    this->speed = speed;
+void Piece::setStrength(int strength) {}
+
+int Piece::getStrength() {
+    return 0;
 }

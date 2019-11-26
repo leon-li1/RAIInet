@@ -6,6 +6,7 @@ class Player;
 
 class Graphics
 {
+protected:
     std::vector<Player *> players;
 
 public:

@@ -10,18 +10,18 @@ class InvalidMove;
 
 class Piece : public Observer, public Subject
 {
-    int speed;
     Point pos;
     Player *owner;
 
 public:
-    Piece(int speed, Point pos, Player *owner);
+    Piece(Point pos, Player *owner);
     void setPos(Point newPos);
     Point getPos();
     Player *getOwner();
-    int getSpeed();
-    void setSpeed(int speed);
-    virtual std::string getInfo() = 0;
+    virtual int getSpeed();
+    virtual int getStrength();
+    virtual void setSpeed(int speed);
+    virtual void setStrength(int strength);
 };
 
 #endif

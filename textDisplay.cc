@@ -1,9 +1,12 @@
+#include <iostream>
 #include "textDisplay.h"
+#include "player.h"
+#include "piece.h"
 
 void TextDisplay::update(Player &player) {
     //Supports more than one player
-    for (int i = 0; i < players.length(); i++) {
-        if (players[i] == &player) std::cout << "Player " << i+1 << << ":" << std::endl;
+    for (int i = 0; i < (int)players.size(); i++) {
+        if (players[i] == &player) std::cout << "Player " << i+1 << ":" << std::endl;
     }
     //Print links downloaded
     std::cout << "Downloaded: " << player.dataCount << "D, " << player.virusCount << "V" << std::endl;
@@ -31,7 +34,7 @@ void TextDisplay::update(Player &player) {
 
     //Print actual board
     std::cout << "========" << std::endl;
-    std::vector<vector<char>> board;
+    std::vector<std::vector<char>> board;
     for (int i = 0; i < 8; i ++) {
         std::vector<char> v;
         for (int j = 0; j < 8; j++) {
@@ -39,8 +42,8 @@ void TextDisplay::update(Player &player) {
         }
         board.emplace_back(v);
     }
-    for (auto &p: pieces) {
-        board[p.second->getPos().x][p.second->getPos().y] = piece.first[0];
+    for (auto &p: player.pieces) {
+        board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
     }
     for (int i = 0; i < 8; i ++) {
         for (int j = 0; j < 8; j++) {
@@ -52,10 +55,10 @@ void TextDisplay::update(Player &player) {
         
 
     //Print known information about the other player(s)
-    for (int i = 0; i < players.length(); i++) {
+    for (int i = 0; i < (int)players.size(); i++) {
         if (players[i] != &player) {
             //Print player
-            std::cout << "Player " << i+1 << << ":" << std::endl;
+            std::cout << "Player " << i+1 << ":" << std::endl;
 
             //Print links downloaded
             std::cout << "Downloaded: " << players[i]->dataCount << "D, " << players[i]->virusCount << "V" << std::endl;
@@ -69,7 +72,7 @@ void TextDisplay::update(Player &player) {
 
             //Print known pieces of other player(s)
             c = 0;
-            for (auto: &p : players[i]->pieces) {
+            for (auto &p : players[i]->pieces) {
                 if (p.second->getInfo() != "") {
                     bool in = false;
                     for (auto &known : player.knownPieces) {
@@ -79,7 +82,7 @@ void TextDisplay::update(Player &player) {
                         }
                     }
                     if (in) {
-                        std::cout << p.first << ": " << known.second;
+                        std::cout << p.first << ": " << player.knownPieces[p.first];
                     } else {
                         std::cout << p.first << ": ?";
                     }
@@ -88,7 +91,7 @@ void TextDisplay::update(Player &player) {
                     } else {
                         std::cout << "\t";
                     }
-                    c++
+                    c++;
                 }
             }
 

@@ -4,7 +4,7 @@
 struct Point {
     int x;
     int y;
-    bool operator==(Point &other);
+    bool operator==(const Point other) const;
 };
 
 #endif
