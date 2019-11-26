@@ -30,6 +30,10 @@ public:
     void download(Data *data);
     void useAbility(int ability);
     void addKnownPiece(std::string pieceName, std::string info);
+
+    friend class Graphics;
+    friend class TextDisplay;
+    friend class GraphicsDisplay;
 };
 
 #endif

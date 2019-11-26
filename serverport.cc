@@ -17,3 +17,8 @@ void Serverport::notify(Piece &whoFrom)
         whoFrom.getOwner()->download(this);
     }
 }
+
+std::string Serverport::getInfo()
+{
+    return "";
+}

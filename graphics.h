@@ -8,10 +8,8 @@ class Graphics
 {
     std::vector<Player *> players;
 
-    // is this right?
-    friend class Player;
-
 public:
+    Graphics(std::vector<Player *> players);
     virtual void update(Player &player) = 0;
 };
 
