@@ -3,4 +3,4 @@
 
 Strengthen::Strengthen(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Strengthen::use() {}
+void Strengthen::use(istream &in) {}

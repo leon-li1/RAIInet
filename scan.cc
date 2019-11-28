@@ -3,4 +3,6 @@
 
 Scan::Scan(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Scan::use() {}
+void Scan::use(istream &in) {
+    
+}

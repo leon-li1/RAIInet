@@ -3,4 +3,4 @@
 
 Steal::Steal(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Steal::use() {}
+void Steal::use(istream &in) {}

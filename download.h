@@ -8,7 +8,7 @@ class Download : public Ability
 {
 public:
     Download(Player *owner, player * other);
-    void use() override;
+    void use(istream &in) override;
 };
 
 #endif

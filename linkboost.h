@@ -8,7 +8,7 @@ class Linkboost : public Ability
 {
 public:
     Linkboost(Player *owner, Player *other);
-    void use() override;
+    void use(istream &in) override;
 };
 
 #endif

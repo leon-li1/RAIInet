@@ -3,4 +3,4 @@
 
 Linkboost::Linkboost(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Linkboost::use() {}
+void Linkboost::use(istream &in) {}

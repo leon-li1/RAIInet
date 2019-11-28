@@ -8,7 +8,7 @@ class Scan: public Ability
 {
     public:
     Scan(Player *owner, Player *other);
-    void use() override;
+    void use(istream &in) override;
 };
 
 #endif

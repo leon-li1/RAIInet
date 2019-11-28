@@ -3,4 +3,4 @@
 
 Polarize::Polarize(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Polarize::use() {}
+void Polarize::use(istream &in) {}

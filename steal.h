@@ -8,7 +8,7 @@ class Steal: public Ability
 {
     public:
     Steal(Player *owner, Player *other);
-    void use() override;
+    void use(istream &in) override;
 };
 
 #endif

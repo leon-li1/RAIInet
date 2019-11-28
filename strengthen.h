@@ -8,7 +8,7 @@ class Strengthen: public Ability
 {
     public:
     Strengthen(Player *owner, Player *other);
-    void use() override;
+    void use(istream &in) override;
 };
 
 #endif
