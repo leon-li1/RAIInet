@@ -1,5 +1,6 @@
 #ifndef ABLITY_H
 #define ABLITY_H
+#include <iostream>
 
 class Player;
 
@@ -12,7 +13,7 @@ class Ability
     
 
 public:
-    virtual void use() = 0;
+    virtual void use(istream &in) = 0;
 };
 
 #endif

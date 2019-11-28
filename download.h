@@ -2,10 +2,13 @@
 #define DOWNLOAD_H
 #include "ability.h"
 
+class Player;
+
 class Download : public Ability
 {
 public:
-    void use() override;
+    Download(Player *owner, player * other);
+    void use(istream &in) override;
 };
 
 #endif

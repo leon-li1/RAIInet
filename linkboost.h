@@ -2,10 +2,13 @@
 #define LINKBOOST_H
 #include "ability.h"
 
+class Player;
+
 class Linkboost : public Ability
 {
 public:
-    void use() override;
+    Linkboost(Player *owner, Player *other);
+    void use(istream &in) override;
 };
 
 #endif

@@ -2,9 +2,13 @@
 #define SCAN_H
 #include "ability.h"
 
-class Scan: public Ability {
+class Player;
+
+class Scan: public Ability
+{
     public:
-    void use() override;
+    Scan(Player *owner, Player *other);
+    void use(istream &in) override;
 };
 
 #endif
