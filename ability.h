@@ -13,7 +13,7 @@ class Ability
     
 
 public:
-    virtual void use(istream &in) = 0;
+    virtual void use(std::istream &in) = 0;
 };
 
 #endif

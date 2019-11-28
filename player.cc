@@ -77,13 +77,13 @@ void Player::download(Piece *piece)
     piece->getOwner()->removePiece(piece);
 }
 
-void Player::useAbility(int ability)
+void Player::useAbility(int ability, std::istream &in)
 {
 
     if (!abilities[ability])
         throw InvalidAbility{};
 
-    abilities[ability]->use();
+    abilities[ability]->use(in);
     abilities[ability] = nullptr;
 }
 

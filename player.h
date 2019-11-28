@@ -28,7 +28,7 @@ public:
     std::string getPieceName(Piece *piece);
     void removePiece(Piece *piece);
     void download(Piece *piece);
-    void useAbility(int ability);
+    void useAbility(int ability, std::istream &in);
     void addKnownPiece(std::string pieceName, std::string info);
     Edge getEdge();
     int pieceCount();

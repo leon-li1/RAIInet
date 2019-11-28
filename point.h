@@ -9,9 +9,8 @@ struct Point {
     
     bool operator==(const Point other) const;
     bool operator!=(const Point other) const;
-
-    istream& operator>>(istream &in, Point &p);
-    
+    friend std::istream &operator>>(std::istream &in, Point &p);
 };
 
+std::istream &operator>>(std::istream &in, Point &p);
 #endif

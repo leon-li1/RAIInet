@@ -97,8 +97,6 @@ void TextDisplay::update(Player &player) {
                     c++;
                 }
             }
-
-
         }
     }
 }

@@ -10,10 +10,10 @@ bool Point::operator==(const Point other) const
 
 bool Point::operator != (const Point other) const
 {
-    return !(this == other);
+    return !(*this == other);
 }
 
-istream& operator>>(istream &in, Point &p){
+std::istream& operator>>(std::istream &in, Point &p){
     in >> p.x;
     in >> p.y;
     return in;
