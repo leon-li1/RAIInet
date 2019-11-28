@@ -6,6 +6,7 @@ class Player;
 
 class Download : public Ability
 {
+    
 public:
     Download(Player *owner, player * other);
     void use(istream &in) override;
