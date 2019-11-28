@@ -3,6 +3,8 @@
 #include "player.h"
 #include "piece.h"
 
+TextDisplay::TextDisplay(std::vector<Player *> players) : Graphics{players} {}
+
 void TextDisplay::update(Player &player) {
     //Supports more than one player
     for (int i = 0; i < (int)players.size(); i++) {
@@ -34,24 +36,26 @@ void TextDisplay::update(Player &player) {
 
     //Print actual board
     std::cout << "========" << std::endl;
-    std::vector<std::vector<char>> board;
-    for (int i = 0; i < 8; i ++) {
-        std::vector<char> v;
+    char board[8][8];
+    for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            v.emplace_back('.');
+            board[i][j] = '.';
         }
-        board.emplace_back(v);
     }
-    for (auto &p: player.pieces) {
-        board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
+    for (auto &pl : players) {
+        for (auto &p: pl->pieces) {
+            std::cout << p.first << " is at position " << p.second->getPos().x << ", " << p.second->getPos().y << std::endl;
+            board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
+        }
     }
-    for (int i = 0; i < 8; i ++) {
+    for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            std::cout << board[i][j];
+            std::cout << board[j][i];
         }
         std::cout << std::endl;
     }
-    std::cout << "========" << std::endl;       
+    std::cout << "========" << std::endl;
+        
 
     //Print known information about the other player(s)
     for (int i = 0; i < (int)players.size(); i++) {
@@ -93,6 +97,8 @@ void TextDisplay::update(Player &player) {
                     c++;
                 }
             }
+
+
         }
     }
 }

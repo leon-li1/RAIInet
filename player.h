@@ -24,13 +24,20 @@ public:
     Player(Direction dir);
     void move(std::string pieceName, Direction direction);
     bool owns(Piece *piece);
-    void addPiece(std::string pieceName, Piece *piece);
+    void addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players);
     std::string getPieceName(Piece *piece);
     void removePiece(Piece *piece);
     void download(Piece *piece);
     void useAbility(int ability);
     void addKnownPiece(std::string pieceName, std::string info);
     Edge getEdge();
+    int pieceCount();
+    std::string getPieceInfo(std::string pieceName);
+    int getVirusCount();
+    int getDataCount();
+    void setVirusCount(int newCount);
+    void setDataCount(int newCount);
+    Piece *getPiece(std::string pieceName);
 
     friend class Graphics;
     friend class TextDisplay;

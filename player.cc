@@ -39,8 +39,14 @@ bool Player::owns(Piece *piece)
     return false;
 }
 
-void Player::addPiece(std::string pieceName, Piece *piece)
+void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players)
 {
+    for (auto &pl : players) {
+        for (auto &p : pl->pieces) {
+            (p.second)->attach(piece);
+            piece->attach(p.second);
+        }
+    }
     pieces[pieceName] = piece;
 }
 
@@ -88,4 +94,32 @@ void Player::addKnownPiece(std::string pieceName, std::string info)
 
 Edge Player::getEdge() {
     return adjacentEdge;
+}
+
+int Player::pieceCount() {
+    return (int)pieces.size();
+}
+
+std::string Player::getPieceInfo(std::string pieceName) {
+    return pieces[pieceName]->getInfo();
+}
+
+int Player::getVirusCount() {
+    return virusCount;
+}
+
+int Player::getDataCount() {
+    return dataCount;
+}
+
+void Player::setVirusCount(int newCount) {
+    virusCount = newCount;
+}
+
+void Player::setDataCount(int newCount) {
+    dataCount = newCount;
+}
+
+Piece *Player::getPiece(std::string pieceName) {
+    return pieces[pieceName];
 }

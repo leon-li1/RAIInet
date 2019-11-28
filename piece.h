@@ -1,7 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 #include "observer.h"
-#include "subject .h"
+#include "subject.h"
 #include "point.h"
 #include <utility>
 

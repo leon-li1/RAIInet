@@ -11,6 +11,9 @@
 #include "virus.h"
 #include "point.h"
 #include "serverport.h"
+#include "graphics.h"
+#include "textDisplay.h"
+
 
 using namespace std;
 
@@ -20,6 +23,12 @@ int main (int argc, char *argv[])
     // Create the players
     Player p1{Direction::Down};
     Player p2{Direction::Up};
+
+    //Create graphics
+    vector<Player *> players;
+    players.emplace_back(&p1);
+    players.emplace_back(&p2);
+    Graphics *g = new TextDisplay{players};
 
     int i = 0;
 
@@ -154,10 +163,10 @@ int main (int argc, char *argv[])
                 
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
-                        p1.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength});
+                        p1.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength}, players);
                     } else if (command == "-link2") {
                         cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
-                        p2.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength});
+                        p2.addPiece(string{1, which}, new Data{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -166,10 +175,10 @@ int main (int argc, char *argv[])
                     ++linkCount["V" + to_string(strength)];
                     if (command == "-link1") {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
-                        p1.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength});
+                        p1.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 1: 0)}, &p1, strength}, players);
                     } else if (command == "-link2") {
                         cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
-                        p2.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength});
+                        p2.addPiece(string{1, which}, new Virus{1, Point{j, (j == 3 || j == 4? 6: 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -196,20 +205,41 @@ int main (int argc, char *argv[])
     }
 
     // Create serverports
-    p1.addPiece("S1", new Serverport{Point{3, 7}, &p1});
-    p1.addPiece("S2", new Serverport{Point{4, 7}, &p1});
-    p2.addPiece("S1", new Serverport{Point{3, 0}, &p2});
-    p2.addPiece("S2", new Serverport{Point{4, 0}, &p2});
+    p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
+    p1.addPiece("S2", new Serverport{Point{4, 0}, &p1}, players);
+    p2.addPiece("S1", new Serverport{Point{3, 7}, &p2}, players);
+    p2.addPiece("S2", new Serverport{Point{4, 7}, &p2}, players);
 
     cout << "done loading stuff from command line" << endl << endl;
-
-    //We need default arguments for ability LFDSP and links V1V2V3V4D1D2D3D4
+ 
+    if (p1.pieceCount() < 10) {
+        char which = 'a';
+        for (int i = 0; i < 8; i++) {
+            if (i < 4) {
+                p1.addPiece(string{1, (char)(which+i)}, new Virus{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, i+1}, players);
+            } else if (i >= 4) {
+                p1.addPiece(string{1, (char)(which+i)}, new Data{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, (i%4)+1}, players);
+            }
+        }
+    }
+    if (p2.pieceCount() < 10) {
+        char which = 'A';
+        for (int i = 0; i < 8; i++) {
+            if (i < 4) {
+                p2.addPiece(string{1, (char)(which+i)}, new Virus{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, i+1}, players);
+            } else if (i >= 4) {
+                p2.addPiece(string{1, (char)(which+i)}, new Data{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, (i%4)+1}, players);
+            }
+        }
+    }
 
     string command;
     ifstream inFile{};
     string turn = "p1";
     string mode = "cin";
     
+    g->update(p1);
+
     while (true) {
 
         if (inFile.eof()) mode = "cin";
@@ -293,7 +323,11 @@ int main (int argc, char *argv[])
                 continue;
             }
         } else if (command == "board") {
-            //g->update();
+            if (turn == "p1") {
+                g->update(p1);
+            } else if (turn == "p2") {
+                g->update(p2);
+            }
             cout << "board will be printed here" << endl;
         } else if (command == "sequence") {
             if (inFile.is_open()) inFile.close();
