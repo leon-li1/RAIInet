@@ -47,8 +47,8 @@ void TextDisplay::update(Player &player) {
     for (auto &pl : players) {
         for (auto &p: pl->pieces) {
             std::cout << p.first << " is at position " << p.second->getPos().x << ", " << p.second->getPos().y << std::endl;
-            board[p.second->getPos().x][p.second->getPos().y] = p.first[1];
-            std::cout << p.first[1] << std::endl;
+            board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
+            std::cout << p.first[0] << std::endl;
         }
     }
     for (int i = 0; i < 8; i++) {
