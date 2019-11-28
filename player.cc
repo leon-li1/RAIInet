@@ -1,3 +1,4 @@
+#include <string>
 #include "player.h"
 #include "piece.h"
 #include "ability.h"
