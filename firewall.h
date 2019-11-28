@@ -5,6 +5,7 @@
 class Firewall : public Piece
 {
 public:
+    Firewall(Point, Player*);
     void notify(Piece &whoFrom) override;
 };
 

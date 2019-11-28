@@ -7,6 +7,9 @@ class Ability
 {
     Player *owner;
     Player *other;
+    
+    Ability(Player*, Player*);
+    
 
 public:
     virtual void use() = 0;
