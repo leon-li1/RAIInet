@@ -51,8 +51,7 @@ void TextDisplay::update(Player &player) {
         }
         std::cout << std::endl;
     }
-    std::cout << "========" << std::endl;
-        
+    std::cout << "========" << std::endl;       
 
     //Print known information about the other player(s)
     for (int i = 0; i < (int)players.size(); i++) {
@@ -94,8 +93,6 @@ void TextDisplay::update(Player &player) {
                     c++;
                 }
             }
-
-
         }
     }
 }
