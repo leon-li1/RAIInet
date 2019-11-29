@@ -216,9 +216,9 @@ int main (int argc, char *argv[])
         char which = 'a';
         for (int i = 0; i < 8; i++) {
             if (i < 4) {
-                p1.addPiece(to_string((char)(which + i)), new Virus{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, i+1}, players);
+                p1.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, i+1}, players);
             } else if (i >= 4) {
-                p1.addPiece(to_string((char)(which + i)), new Data{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, (i%4)+1}, players);
+                p1.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4? 1: 0)}, &p1, (i%4)+1}, players);
             }
         }
     }
@@ -226,9 +226,9 @@ int main (int argc, char *argv[])
         char which = 'A';
         for (int i = 0; i < 8; i++) {
             if (i < 4) {
-                p2.addPiece(to_string((char)(which + i)), new Virus{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, i+1}, players);
+                p2.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, i+1}, players);
             } else if (i >= 4) {
-                p2.addPiece(to_string((char)(which + i)), new Data{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, (i%4)+1}, players);
+                p2.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4? 6: 7)}, &p2, (i%4)+1}, players);
             }
         }
     }

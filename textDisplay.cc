@@ -39,18 +39,24 @@ void TextDisplay::update(Player &player) {
     //Print actual board
     std::cout << "========" << std::endl;
     char board[8][8];
+    
+    // initialize board to '.'
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             board[i][j] = '.';
         }
     }
+    
+    // overwrite '.' with pieces
     for (auto &pl : players) {
         for (auto &p: pl->pieces) {
-            std::cout << p.first << " is at position " << p.second->getPos().x << ", " << p.second->getPos().y << std::endl;
+            //std::cout << p.first << " is at position " << p.second->getPos().x << ", " << p.second->getPos().y << std::endl;
             board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
-            std::cout << p.first[0] << std::endl;
+            //std::cout << p.first[0] << std::endl;
         }
     }
+
+    // print the board array
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             std::cout << board[j][i];
