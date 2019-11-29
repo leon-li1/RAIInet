@@ -271,10 +271,9 @@ int main (int argc, char *argv[])
 
             try {
                 if (turn == "p1") {
-                    if (d == Direction::Up){}
-                    //p1->move(which, d);
+                    p1.move(which, d); //check this
                 } else if (turn == "p2") {
-                    //p2->move(which, d);
+                    p2.move(which, d); //check this
                 }
             } catch (InvalidMove) {
                 cout << "Invalid Move" << endl;
