@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     // Create the players
     Player p1{Direction::Down};
     Player p2{Direction::Up};
+    p1.setOther(&p2);
+    p2.setOther(&p1);
 
     //Make players vector
     vector<Player *> players;
@@ -346,7 +348,8 @@ int main(int argc, char *argv[])
             {
                 d = Direction::Right;
             } else {
-                cerr << "Invalid command" << endl;
+                cerr << "Invalid direction" << endl;
+                continue;
             }
 
             try

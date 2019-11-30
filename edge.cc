@@ -13,7 +13,7 @@ bool Edge::isPassed(Point p)
     }
     else if (dir == Direction::Down)
     {
-        if (p.y > 8)
+        if (p.y > 7)
             return true;
     }
 

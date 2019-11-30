@@ -19,6 +19,7 @@ class Player
     int virusCount;
     std::map<std::string, std::string> knownPieces;
     Edge adjacentEdge;
+    Player *other;
 
 public:
     Player(Direction dir);
@@ -26,7 +27,7 @@ public:
     bool owns(Piece *piece);
     void addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players);
     std::string getPieceName(Piece *piece);
-    void removePiece(Piece *piece);
+    void removePiece(Piece *piece, std::vector<Player *> players);
     void download(Piece *piece);
     void useAbility(int ability, std::istream &in);
     void addKnownPiece(std::string pieceName, std::string info);
@@ -38,6 +39,7 @@ public:
     void setVirusCount(int newCount);
     void setDataCount(int newCount);
     Piece *getPiece(std::string pieceName);
+    void setOther(Player *other);
 
     friend class Graphics;
     friend class TextDisplay;

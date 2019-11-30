@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #include "player.h"
 #include "piece.h"
 #include "ability.h"
@@ -68,8 +69,15 @@ std::string Player::getPieceName(Piece *piece)
     return "";
 }
 
-void Player::removePiece(Piece *piece)
+void Player::removePiece(Piece *piece, std::vector<Player *> players)
 {
+    //Remove observers
+    for (auto &pl : players) {
+        for (auto &p : pl->pieces) {
+            p.second->detach(piece);
+        }
+    }
+    
     //erase it from the map
     for (auto &p : pieces)
     {
@@ -87,7 +95,10 @@ void Player::download(Piece *piece)
     if (piece->getInfo()[0] == 'D') dataCount++;
     else if (piece->getInfo()[0] == 'V') virusCount++;
 
-    piece->getOwner()->removePiece(piece);
+    std::vector<Player *> ps;
+    ps.emplace_back(this);
+    ps.emplace_back(other);
+    piece->getOwner()->removePiece(piece, ps);
 }
 
 void Player::useAbility(int ability, std::istream &in)
@@ -135,4 +146,8 @@ void Player::setDataCount(int newCount) {
 
 Piece *Player::getPiece(std::string pieceName) {
     return pieces[pieceName];
+}
+
+void Player::setOther(Player *other) {
+    this->other = other;
 }
