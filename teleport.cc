@@ -1,17 +1,21 @@
+#include <iostream>
+#include <string>
 #include "teleport.h"
 #include "player.h"
 #include "point.h"
-#include <string>
+#include "invalidMove.h"
+#include "piece.h"
 
 Teleport::Teleport(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Teleport::use(istream &in) {
+void Teleport::use(std::istream &in) {
     std::string pieceName;
     Point pos;
     in >> pieceName >> pos;    
 
-    if (owner->owns(getPiece(pieceName))) {
-        thePiece->setPos(newPos);
-        thePiece->notify(*thePiece);
+    if (owner->getPiece(pieceName)) {
+        owner->getPiece(pieceName)->setPos(pos);
+    } else {
+        throw InvalidMove{"You must teleport a piece you own."};
     }
 }

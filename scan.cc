@@ -1,23 +1,18 @@
+#include <iostream>
+#include <string>
 #include "scan.h"
 #include "player.h"
-#include <string>
 
 Scan::Scan(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Scan::use(istream &in) {
+void Scan::use(std::istream &in) {
 
-    int playerThatIsScanned = 2;
     std::string pieceName;
     in >> pieceName;
-
-    if (pieceName[0] > 'a')
-        playerThatIsScanned = 1;
     
-    if (owner->getEdge().dir == Direction::Down) { //owner is p1
-        if (playerThatIsScanned == 2) 
-            owner->addKnownPiece(pieceName, other->getPieceInfo(pieceName));
-    }    else { //owner is p2
-        if (playerThatIsScanned == 2) 
-            owner->addKnownPiece(pieceName, other->getPieceInfo(pieceName));
+    if (owner->getPiece(pieceName) == nullptr) { //other owns piece
+        owner->addKnownPiece(pieceName, other->getPieceInfo(pieceName));
+    } else { //owner owns piece
+        other->addKnownPiece(pieceName, owner->getPieceInfo(pieceName));
     }
 }

@@ -9,12 +9,19 @@
 #include "invalidMove.h"
 #include "data.h"
 #include "virus.h"
+#include "firewall.h"
 #include "point.h"
 #include "serverport.h"
 #include "graphics.h"
 #include "textDisplay.h"
 #include "linkboost.h"
 #include "download.h"
+#include "steal.h"
+#include "teleport.h"
+#include "strengthen.h"
+#include "firewallAbility.h"
+#include "polarize.h"
+#include "scan.h"
 
 using namespace std;
 
@@ -95,12 +102,12 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        p1.addAbility(new Download{&p1, &p2});
+                        p1.addAbility(new FirewallAbility{&p1, &p2});
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        p2.addAbility(new Download{&p2, &p1});
+                        p2.addAbility(new FirewallAbility{&p2, &p1});
                     }
                 }
                 else if (a[j] == 'D')
@@ -115,12 +122,12 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        //p1->abilities.emplace_back(new Download{});
+                        p1.addAbility(new Download{&p1, &p2});
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        //p2->abilities.emplace_back(new Download{});
+                        p2.addAbility(new Download{&p2, &p1});
                     }
                 }
                 else if (a[j] == 'S')
@@ -135,12 +142,12 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        //p1->abilities.emplace_back(new Scan{});
+                        p1.addAbility(new Scan{&p1, &p2});
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        //p2->abilities.emplace_back(new Scan{});
+                        p2.addAbility(new Scan{&p2, &p1});
                     }
                 }
                 else if (a[j] == 'P')
@@ -155,12 +162,72 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        //p1->abilities.emplace_back(new Polarize{});
+                        p1.addAbility(new Polarize{&p1, &p2});
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        //p2->abilities.emplace_back(new Polarize{});
+                        p2.addAbility(new Polarize{&p2, &p1});
+                    }
+                }
+                else if (a[j] == 'T')
+                {
+                    abilityCount['T']++;
+                    if (abilityCount['T'] >= 3)
+                    {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "teleport ";
+                    if (command == "-ability1")
+                    {
+                        cout << "to player 1 in position " << j + 1 << endl;
+                        p1.addAbility(new Teleport{&p1, &p2});
+                    }
+                    else if (command == "-ability2")
+                    {
+                        cout << "to player 2 in position " << j + 1 << endl;
+                        p2.addAbility(new Teleport{&p2, &p1});
+                    }
+                }
+                else if (a[j] == 'R')
+                {
+                    abilityCount['R']++;
+                    if (abilityCount['R'] >= 3)
+                    {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "steal ";
+                    if (command == "-ability1")
+                    {
+                        cout << "to player 1 in position " << j + 1 << endl;
+                        p1.addAbility(new Steal{&p1, &p2});
+                    }
+                    else if (command == "-ability2")
+                    {
+                        cout << "to player 2 in position " << j + 1 << endl;
+                        p2.addAbility(new Steal{&p2, &p1});
+                    }
+                }
+                else if (a[j] == 'G')
+                {
+                    abilityCount['G']++;
+                    if (abilityCount['G'] >= 3)
+                    {
+                        cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
+                        return 1;
+                    }
+                    cout << "strengthen ";
+                    if (command == "-ability1")
+                    {
+                        cout << "to player 1 in position " << j + 1 << endl;
+                        p2.addAbility(new Strengthen{&p1, &p2});
+                    }
+                    else if (command == "-ability2")
+                    {
+                        cout << "to player 2 in position " << j + 1 << endl;
+                        p2.addAbility(new Strengthen{&p2, &p1});
                     }
                 }
                 else

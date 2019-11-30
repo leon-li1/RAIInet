@@ -1,12 +1,13 @@
+#include <iostream>
+#include <string>
 #include "strengthen.h"
 #include "player.h"
 #include "piece.h"
 #include "invalidMove.h"
-#include <string>
 
 Strengthen::Strengthen(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Strengthen::use(istream &in) {
+void Strengthen::use(std::istream &in) {
     std::string pieceName;
     in >> pieceName;
     

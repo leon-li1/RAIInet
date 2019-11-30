@@ -1,5 +1,6 @@
 #ifndef POLARIZE_H
 #define POLARIZE_H
+#include <iostream>
 #include "ability.h"
 
 class Player;
@@ -7,8 +8,8 @@ class Player;
 class Polarize : public Ability
 {
 public:
-    Polarize(Player *owner, player * other);
-    void use(istream &in) override;
+    Polarize(Player *owner, Player * other);
+    void use(std::istream &in) override;
 };
 
 #endif

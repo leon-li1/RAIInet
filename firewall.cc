@@ -1,19 +1,21 @@
+#include <string>
 #include "firewall.h"
 #include "invalidMove.h"
+#include "player.h"
 
 Firewall::Firewall(Point pos, Player *owner) : Piece(pos, owner) {}
 
 void Firewall::notify(Subject &whoFrom)
 {
-    if (whoFrom.getPos() == this->pos)
+    if (whoFrom.getPos() == getPos())
     {
-        if (whoFrom.getOwner() != this->owner)
+        if (whoFrom.getOwner() != getOwner())
         {
             std::string info = whoFrom.getInfo();
-            owner->addKnownPiece(whoFrom.getOwner->getPieceName((Piece *) &whoFrom), info);
+            getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName((Piece *) &whoFrom), info);
 
             if (info.length() > 0 && info[0] == 'V'){
-                owner->download((Piece *)&whoFrom);
+                whoFrom.getOwner()->download((Piece *)&whoFrom);
             }
         }
     }
