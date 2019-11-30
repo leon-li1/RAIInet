@@ -8,8 +8,8 @@ class Download : public Ability
 {
     
 public:
-    Download(Player *owner, player * other);
-    void use(istream &in) override;
+    Download(Player *owner, Player *other);
+    void use(std::istream &in) override;
 };
 
 #endif
