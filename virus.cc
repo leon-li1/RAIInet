@@ -7,11 +7,13 @@ Virus::Virus(int speed, Point pos, Player *owner, int strength) : Piece{pos, own
 
 void Virus::notify(Subject &whoFrom)
 {
+    if (&whoFrom == this) return;
     if (whoFrom.getPos() == getPos())
     {
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
-            throw InvalidMove{"Your trying to move on your own piece"};
+            std::cout << whoFrom.getInfo() << " trying to move on " << getInfo() << std::endl;
+            throw InvalidMove{"Your trying to move on your own virus"};
         }
         else
         {
@@ -20,6 +22,8 @@ void Virus::notify(Subject &whoFrom)
             whoFrom.getOwner()->addKnownPiece(getOwner()->getPieceName(this), getInfo());
             //Reveal other player's piece to this player
             getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName((Piece *)&whoFrom), whoFrom.getInfo());
+
+            std::cout << whoFrom.getInfo() << " battles " << getInfo() << std::endl;
 
             //Winner downloads the other player's link
             if (strength > whoFrom.getStrength())
@@ -34,6 +38,7 @@ void Virus::notify(Subject &whoFrom)
             { //Tie, so player initiating wins
                 whoFrom.getOwner()->download(this);
             }
+            std::cout << "download by virus battle" << std::endl;
         }
     }
 }

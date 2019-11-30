@@ -344,6 +344,8 @@ int main(int argc, char *argv[])
             else if (direction == "right")
             {
                 d = Direction::Right;
+            } else {
+                cerr << "Invalid command" << endl;
             }
 
             try
@@ -365,7 +367,14 @@ int main(int argc, char *argv[])
 
             turn = (turn == "p1") ? "p2" : "p1";
             cout << "moving " << which << " in direction " << direction << endl;
-            //g->update()
+            if (turn == "p1")
+            {
+                g->update(p1);
+            }
+            else if (turn == "p2")
+            {
+                g->update(p2);
+            }
         }
         else if (command == "abilities")
         {
@@ -432,7 +441,6 @@ int main(int argc, char *argv[])
             {
                 g->update(p2);
             }
-            cout << "board will be printed here" << endl;
         }
         else if (command == "sequence")
         {

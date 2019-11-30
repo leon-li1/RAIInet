@@ -9,13 +9,16 @@ void Serverport::notify(Subject &whoFrom)
 {
 
     // if its your piece, invalid move
-    if (getOwner() == whoFrom.getOwner())
-    {
-        throw InvalidMove{"You can't download your own piece on your serverport"};
-    }
-    else // if not, download it to the piece's owner
-    {
-        whoFrom.getOwner()->download(this);
+    if (getPos() == whoFrom.getPos()) {
+        if (getOwner() == whoFrom.getOwner())
+        {
+            throw InvalidMove{"You can't download your own piece on your serverport"};
+        }
+        else // if not, download it to the piece's owner
+        {
+            whoFrom.getOwner()->download(this);
+            std::cout << "download by server port" << std::endl;
+        }
     }
 }
 
