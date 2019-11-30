@@ -9,7 +9,12 @@ void Firewall::notify(Subject &whoFrom)
     {
         if (whoFrom.getOwner() != this->owner)
         {
-            throw InvalidMove{"Cannot move ontop of oponent's Firewall"};
+            std::string info = whoFrom.getInfo();
+            owner->addKnownPiece(whoFrom.getOwner->getPieceName((Piece *) &whoFrom), info);
+
+            if (info.length() > 0 && info[0] == 'V'){
+                owner->download((Piece *)&whoFrom);
+            }
         }
     }
 }
