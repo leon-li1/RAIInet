@@ -48,8 +48,8 @@ void TextDisplay::update(Player &player)
             for (auto &known : players[1]->knownPieces) {
                 if (p.first == known.first) unknown = false;
             }
-            if (unknown) std::cout << "?" << std::endl;
-            else std::cout << p.second << std::endl;
+            if (unknown) std::cout << "?";
+            else std::cout << p.second;
             
             if (c == 3 || c == 7)
             {
@@ -81,9 +81,9 @@ void TextDisplay::update(Player &player)
     {
         for (auto &p : pl->pieces)
         {
-            //std::cout << p.first << " is at position " << p.second->getPos().x << ", " << p.second->getPos().y << std::endl;
-            board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
-            //std::cout << p.first[0] << std::endl;
+            if (p.second) {
+                board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
+            }
         }
     }
 

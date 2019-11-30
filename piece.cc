@@ -6,8 +6,8 @@
 Piece::Piece(Point pos, Player *owner) : pos{pos}, owner{owner} {}
 
 bool isInside(Point p) {
-    if (p.x >= 0 && p.x <= 8) {
-        if (p.y >= 0 && p.x <= 8) {
+    if (p.x >= 0 && p.x < 8) {
+        if (p.y >= 0 && p.y < 8) {
             return true;
         }
     }
@@ -27,7 +27,6 @@ void Piece::setPos(Point newPos) {
     }
     try {
         pos = newPos;
-        //std::cout << "hi";
         this->notifyObservers(); //this function is failing
     } catch (InvalidMove im) {
         pos = oldPos;

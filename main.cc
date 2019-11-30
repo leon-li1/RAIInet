@@ -450,11 +450,18 @@ int main(int argc, char *argv[])
             string file;
             cin >> file;
             inFile.open(file);
-            mode = "sequence";
+            if (!inFile.fail()) {
+                mode = "sequence";
+            } else {
+                cerr << "Invalid file name" << endl;
+                continue;
+            }
         }
         else if (command == "quit")
         {
             break;
+        } else {
+            cerr << "Invalid command" << endl;
         }
     }
 }

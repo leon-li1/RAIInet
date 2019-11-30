@@ -6,11 +6,17 @@
 #include "data.h"
 #include "virus.h"
 #include "invalidAbility.h"
+#include "invalidMove.h"
 
 Player::Player(Direction dir) : dataCount{0}, virusCount{0}, adjacentEdge{Edge{dir}} {}
 
 void Player::move(std::string pieceName, Direction direction)
 {
+    bool inArray = false;
+    for (auto &p : pieces) {
+        if (p.first == pieceName) inArray = true;
+    }
+    if (!inArray) throw InvalidMove{"You must move a link you own."};
 
     Piece *thePiece = pieces[pieceName];
     Point newPos = thePiece->getPos();
@@ -25,9 +31,6 @@ void Player::move(std::string pieceName, Direction direction)
         newPos.x += thePiece->getSpeed();
 
     thePiece->setPos(newPos);
-
-    // notify other pieces
-    thePiece->notify(*thePiece);
 }
 
 bool Player::owns(Piece *piece)
@@ -73,6 +76,8 @@ void Player::removePiece(Piece *piece)
         if (p.second == piece) {
             delete piece;
             p.second = nullptr;
+            pieces.erase(p.first);
+            return;
         }
     }
 }

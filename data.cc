@@ -8,6 +8,7 @@ Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner
 void Data::notify(Subject &whoFrom)
 {
     if (&whoFrom == this) return;
+    std::cout << getInfo() << " notified in data" << std::endl;
     if (whoFrom.getPos() == getPos())
     {
         if (getOwner() == whoFrom.getOwner())
