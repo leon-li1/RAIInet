@@ -11,7 +11,7 @@ void Serverport::notify(Subject &whoFrom)
     // if its your piece, invalid move
     if (getOwner() == whoFrom.getOwner())
     {
-        throw InvalidMove{};
+        throw InvalidMove{"You can't download your own piece on your serverport"};
     }
     else // if not, download it to the piece's owner
     {

@@ -27,6 +27,7 @@ void Player::move(std::string pieceName, Direction direction)
     thePiece->setPos(newPos);
 
     // notify other pieces
+    thePiece->notify(*thePiece);
 }
 
 bool Player::owns(Piece *piece)
@@ -42,12 +43,15 @@ bool Player::owns(Piece *piece)
 
 void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players)
 {
+    //add observers
     for (auto &pl : players) {
         for (auto &p : pl->pieces) {
             (p.second)->attach(piece);
             piece->attach(p.second);
         }
     }
+
+    //add the piece to the map
     pieces[pieceName] = piece;
 }
 

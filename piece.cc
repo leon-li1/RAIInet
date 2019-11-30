@@ -21,15 +21,16 @@ void Piece::setPos(Point newPos) {
             return;
     }
     if (!isInside(newPos)) {
-        throw InvalidMove{};
+        throw InvalidMove{"The new position is off the grid"};
         return;
     }
     try {
         pos = newPos;
-        this->notifyObservers();
-    } catch (InvalidMove) {
+        //std::cout << "hi";
+        this->notifyObservers(); //this function is failing
+    } catch (InvalidMove im) {
         pos = oldPos;
-        throw InvalidMove{};
+        throw im;
     }
 }
 

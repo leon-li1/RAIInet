@@ -21,6 +21,4 @@ void Subject::notifyObservers()
         ob->notify(*this);
 }
 
-Subject::~Subject() {
-    
-}
+Subject::~Subject() {}

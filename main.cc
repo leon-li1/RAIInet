@@ -213,8 +213,11 @@ int main(int argc, char *argv[])
                 }
                 else if (l[j] == 'V')
                 {
+                    // Scale strength to 1-4
                     int strength = l[j + 1] - '0';
+
                     ++linkCount["V" + to_string(strength)];
+
                     if (command == "-link1")
                     {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
@@ -354,14 +357,15 @@ int main(int argc, char *argv[])
                     p2.move(which, d); //check this
                 }
             }
-            catch (InvalidMove)
+            catch (InvalidMove im)
             {
-                cout << "Invalid Move" << endl;
+                cout << im.what() << endl;
                 continue;
             }
 
             turn = (turn == "p1") ? "p2" : "p1";
             cout << "moving " << which << " in direction " << direction << endl;
+            //g->update()
         }
         else if (command == "abilities")
         {

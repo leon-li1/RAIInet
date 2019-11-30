@@ -8,12 +8,8 @@ TextDisplay::TextDisplay(std::vector<Player *> players) : Graphics{players} {}
 
 void TextDisplay::update(Player &player)
 {
-    //Supports more than one player
-    for (int i = 0; i < (int) players.size(); i++)
-    {
-        if (players[i] == &player)
-            std::cout << "Player " << i + 1 << ":" << std::endl;
-    }
+    //Print player name
+    std::cout << "Player 1:" << std::endl;
 
     //Print links downloaded
     std::cout << "Downloaded: " << player.dataCount << "D, " << player.virusCount << "V" << std::endl;
@@ -82,58 +78,55 @@ void TextDisplay::update(Player &player)
     std::cout << "========" << std::endl;
 
     //Print known information about the other player(s)
-    for (int i = 0; i < (int) players.size(); i++)
+    for (int i = 1; i < (int) players.size(); i++)
     {
-        if (players[i] != &player)
+        //Print player Name
+        std::cout << "Player " << i + 1 << ":" << std::endl;
+
+        //Print links downloaded
+        std::cout << "Downloaded: " << players[i]->dataCount << "D, " << players[i]->virusCount << "V" << std::endl;
+
+        //Print abilities
+        int abilityC = 0;
+        for (auto &a : players[i]->abilities)
         {
-            //Print player
-            std::cout << "Player " << i + 1 << ":" << std::endl;
+            if (a != nullptr)
+                abilityC++;
+        }
+        std::cout << "Abilities: " << abilityC << std::endl;
 
-            //Print links downloaded
-            std::cout << "Downloaded: " << players[i]->dataCount << "D, " << players[i]->virusCount << "V" << std::endl;
-
-            //Print abilities
-            int abilityC = 0;
-            for (auto &a : players[i]->abilities)
+        //Print known pieces of other player(s)
+        c = 0;
+        for (auto &p : players[i]->pieces)
+        {
+            if (p.second->getInfo() != "")
             {
-                if (a != nullptr)
-                    abilityC++;
-            }
-            std::cout << "Abilities: " << abilityC << std::endl;
-
-            //Print known pieces of other player(s)
-            c = 0;
-            for (auto &p : players[i]->pieces)
-            {
-                if (p.second->getInfo() != "")
+                bool in = false;
+                for (auto &known : player.knownPieces)
                 {
-                    bool in = false;
-                    for (auto &known : player.knownPieces)
+                    if (known.first == p.first)
                     {
-                        if (known.first == p.first)
-                        {
-                            in = true;
-                            break;
-                        }
+                        in = true;
+                        break;
                     }
-                    if (in)
-                    {
-                        std::cout << p.first << ": " << player.knownPieces[p.first];
-                    }
-                    else
-                    {
-                        std::cout << p.first << ": ?";
-                    }
-                    if ((c + 1) % 4 == 0)
-                    {
-                        std::cout << std::endl;
-                    }
-                    else
-                    {
-                        std::cout << "\t";
-                    }
-                    c++;
                 }
+                if (in)
+                {
+                    std::cout << p.first << ": " << player.knownPieces[p.first];
+                }
+                else
+                {
+                    std::cout << p.first << ": ?";
+                }
+                if ((c + 1) % 4 == 0)
+                {
+                    std::cout << std::endl;
+                }
+                else
+                {
+                    std::cout << "\t";
+                }
+                c++;
             }
         }
     }

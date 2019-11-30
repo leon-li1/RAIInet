@@ -11,7 +11,7 @@ void Virus::notify(Subject &whoFrom)
     {
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
-            throw InvalidMove{};
+            throw InvalidMove{"Your trying to move on your own piece"};
         }
         else
         {
