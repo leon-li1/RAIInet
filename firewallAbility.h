@@ -10,7 +10,7 @@ class FirewallAbility : public Ability
 {
     public:
         FirewallAbility(Player*, Player*);
-        void use(istream& in) override;
+        void use(std::istream& in) override;
 };
 
 #endif

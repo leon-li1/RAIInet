@@ -1,12 +1,12 @@
 #include "firewallAbility.h"
 
-FirewallAbility::FirewallAbility(Player* owner, Player* other) : Ability{owner, other} {}
+FirewallAbility::FirewallAbility(Player *owner, Player *other) : Ability{owner, other} {}
 
-void FirewallAbility::use(istream& in) override {
-    
+void FirewallAbility::use(std::istream &in)
+{
+
     Point p;
     in >> p;
-    vector<Player> players { owner, other};
+    vector<Player> players{owner, other};
     owner->addPiece("firewall", new Firewall(p, owner), players);
-
 }

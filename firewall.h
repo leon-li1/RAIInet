@@ -2,11 +2,14 @@
 #define FIREWALL_H
 #include "piece.h"
 
+class Subject;
+struct point;
+
 class Firewall : public Piece
 {
 public:
-    Firewall(Point, Player*);
-    void notify(Piece &whoFrom) override;
+    Firewall(Point pos, Player *owner);
+    void notify(Subject &whoFrom) override;
 };
 
 #endif
