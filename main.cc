@@ -44,11 +44,14 @@ int main(int argc, char *argv[])
             //This is to keep track of how many of each ability has been taken
             //When we load abilites in, if any player tries to take more than 2, game will throw an error
             map<char, int> abilityCount;
-            abilityCount['L'] = 0;
-            abilityCount['F'] = 0;
-            abilityCount['D'] = 0;
-            abilityCount['S'] = 0;
-            abilityCount['P'] = 0;
+            abilityCount['L'] = 0;  //Linkboost
+            abilityCount['F'] = 0;  //Firewall
+            abilityCount['D'] = 0;  //Download
+            abilityCount['S'] = 0;  //Scan
+            abilityCount['P'] = 0;  //Polarize
+            abilityCount['T'] = 0;  //Teleport
+            abilityCount['R'] = 0;  //Steal
+            abilityCount['G'] = 0;  //Strengthen
 
             string a = argv[i + 1];
             if ((int) a.length() != 5)
@@ -372,7 +375,7 @@ int main(int argc, char *argv[])
             }
 
             turn = (turn == "p1") ? "p2" : "p1";
-            cout << "moving " << which << " in direction " << direction << endl;
+            //cout << "moving " << which << " in direction " << direction << endl;
             if (turn == "p1")
             {
                 g->update(p1);

@@ -8,7 +8,7 @@ Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner
 void Data::notify(Subject &whoFrom)
 {
     if (&whoFrom == this) return;
-    std::cout << getInfo() << " notified in data" << std::endl;
+    //std::cout << getInfo() << " notified in data" << std::endl;
     if (whoFrom.getPos() == getPos())
     {
         if (getOwner() == whoFrom.getOwner())
@@ -36,7 +36,7 @@ void Data::notify(Subject &whoFrom)
             { //Tie, so player initiating wins
                 whoFrom.getOwner()->download(this);
             }
-            std::cout << "download by data battle" << std::endl;
+            //std::cout << "download by data battle" << std::endl;
         }
     }
 }

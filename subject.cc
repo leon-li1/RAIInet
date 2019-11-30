@@ -1,6 +1,5 @@
 #include "subject.h"
 #include "observer.h"
-#include <iostream>
 
 void Subject::attach(Observer *o)
 {
@@ -21,7 +20,6 @@ void Subject::notifyObservers()
     int i = 0;
     for (auto &ob : observers) {
         if (ob) {
-            std::cout << i << std::endl;
             ob->notify(*this);
         }
         i++;
