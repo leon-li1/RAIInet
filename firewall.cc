@@ -9,7 +9,17 @@ void Firewall::notify(Subject &whoFrom)
     {
         if (whoFrom.getOwner() != this->owner)
         {
-            throw InvalidMove;
+            std::string info = whoFrom.getInfo();
+            owner->addKnownPiece(whoFrom.getOwner->getPieceName((Piece *) &whoFrom), info);
+
+            if (info.length() > 0 && info[0] == 'V'){
+                owner->download((Piece *)&whoFrom);
+            }
         }
     }
+}
+
+std::string Firewall::getInfo()
+{
+    return "";
 }

@@ -16,7 +16,7 @@ bool isInside(Point p) {
 
 void Piece::setPos(Point newPos) {
     Point oldPos = pos;
-    if (owner->getEdge().isPassed(newPos)) {
+    if (owner->getEdge().isPassed(newPos)) { 
             owner->download(this);
             std::cout << "download by passing edge" << std::endl;
             return;
