@@ -25,6 +25,7 @@ public:
     void move(std::string pieceName, Direction direction);
     bool owns(Piece *piece);
     void addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players);
+    void addAbility(Ability *ability);
     std::string getPieceName(Piece *piece);
     void removePiece(Piece *piece);
     void download(Piece *piece);
@@ -38,6 +39,7 @@ public:
     void setVirusCount(int newCount);
     void setDataCount(int newCount);
     Piece *getPiece(std::string pieceName);
+
 
     friend class Graphics;
     friend class TextDisplay;

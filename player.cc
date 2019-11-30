@@ -55,6 +55,10 @@ void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *>
     pieces[pieceName] = piece;
 }
 
+void Player::addAbility(Ability *ability) {
+    abilities.emplace_back(ability);
+}
+
 std::string Player::getPieceName(Piece *piece)
 {
     for (auto &p : pieces)
@@ -129,5 +133,8 @@ void Player::setDataCount(int newCount) {
 }
 
 Piece *Player::getPiece(std::string pieceName) {
-    return pieces[pieceName];
+    if (pieces.count(pieceName) > 0) 
+        return pieces[pieceName];
+    else
+        return nullptr;
 }
