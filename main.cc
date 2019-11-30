@@ -14,6 +14,7 @@
 #include "graphics.h"
 #include "textDisplay.h"
 #include "linkboost.h"
+#include "download.h"
 
 using namespace std;
 
@@ -74,7 +75,7 @@ int main(int argc, char *argv[])
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        p2.addAbility(new Linkboost{&p1, &p2});
+                        p2.addAbility(new Linkboost{&p2, &p1});
                     }
                 }
                 else if (a[j] == 'F')
@@ -89,12 +90,12 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        //p1->abilities.emplace_back(new FirewallAbility{});
+                        p1.addAbility(new Download{&p1, &p2});
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
-                        //p2->abilities.emplace_back(new FirewallAbility{});
+                        p2.addAbility(new Download{&p2, &p1});
                     }
                 }
                 else if (a[j] == 'D')
