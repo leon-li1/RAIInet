@@ -11,8 +11,9 @@
 #include "virus.h"
 #include "point.h"
 #include "serverport.h"
-#include "graphics.h"
-#include "textDisplay.h"
+//#include "graphics.h"
+//#include "textDisplay.h"
+#include "graphicsDisplay.h"
 
 using namespace std;
 
@@ -288,7 +289,7 @@ int main(int argc, char *argv[])
     }
 
     //Create graphics
-    Graphics *g = new TextDisplay{players};
+    Graphics *g = new GraphicsDisplay{players};
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);

@@ -1,15 +1,4 @@
-data.d
-direction.d
-edge.d
-graphics.d
-main.d
-observer.d
-piece.d
-player.d
-point.d
-serverport.d
-subject.d
-textDisplay.d
-virus.d
+*.d
+*.o
 raiinet
 a.out
