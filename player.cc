@@ -67,18 +67,13 @@ std::string Player::getPieceName(Piece *piece)
 
 void Player::removePiece(Piece *piece)
 {
-    //detach observers
-    for (auto &pl : players) {
-        for (auto &p : pl->pieces) {
-            (p.second)->detach(piece);
-        }
-    }
-
     //erase it from the map
     for (auto &p : pieces)
     {
-        if (p.second == piece)
-            pieces.erase(p.first);
+        if (p.second == piece) {
+            delete piece;
+            p.second = nullptr;
+        }
     }
 }
 

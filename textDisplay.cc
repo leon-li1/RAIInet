@@ -12,24 +12,45 @@ void TextDisplay::update(Player &player)
     std::cout << "Player 1:" << std::endl;
 
     //Print links downloaded
-    std::cout << "Downloaded: " << player.dataCount << "D, " << player.virusCount << "V" << std::endl;
+    std::cout << "Downloaded: " << players[0]->dataCount << "D, " << players[0]->virusCount << "V" << std::endl;
 
     //Print abilities
     int abilityCount = 0;
-    for (auto &a : player.abilities)
+    for (auto &a : players[0]->abilities)
     {
         if (a != nullptr)
             abilityCount++;
     }
     std::cout << "Abilities: " << abilityCount << std::endl;
 
-    //Print links
-    int c = 0;
-    for (auto &p : player.pieces)
-    {
-        if (p.second->getInfo() != "")
+    //Print p1's links
+    if (&player == players[0]) {
+        int c = 0;
+        for (auto &p : p1Pieces)
         {
-            std::cout << p.first << ": " << p.second->getInfo();
+            std::cout << p.first << ": " << p.second;
+            if (c == 3 || c == 7)
+            {
+                std::cout << std::endl;
+            }
+            else
+            {
+                std::cout << "\t";
+            }
+            c++;
+        }
+    } else { //Print what p2 knows about p1
+        int c = 0;
+        for (auto &p : p1Pieces)
+        {
+            std::cout << p.first << ": ";
+            bool unknown = true;
+            for (auto &known : players[1]->knownPieces) {
+                if (p.first == known.first) unknown = false;
+            }
+            if (unknown) std::cout << "?" << std::endl;
+            else std::cout << p.second << std::endl;
+            
             if (c == 3 || c == 7)
             {
                 std::cout << std::endl;
@@ -77,57 +98,55 @@ void TextDisplay::update(Player &player)
     }
     std::cout << "========" << std::endl;
 
-    //Print known information about the other player(s)
-    for (int i = 1; i < (int) players.size(); i++)
+    //Print known information about player 2
+    std::cout << "Player " << 2 << ":" << std::endl;
+    //Print links downloaded
+    std::cout << "Downloaded: " << players[1]->dataCount << "D, " << players[1]->virusCount << "V" << std::endl;
+    //Print abilities
+    abilityCount = 0;
+    for (auto &a : players[1]->abilities)
     {
-        //Print player Name
-        std::cout << "Player " << i + 1 << ":" << std::endl;
+        if (a != nullptr)
+            abilityCount++;
+    }
+    std::cout << "Abilities: " << abilityCount << std::endl;
 
-        //Print links downloaded
-        std::cout << "Downloaded: " << players[i]->dataCount << "D, " << players[i]->virusCount << "V" << std::endl;
-
-        //Print abilities
-        int abilityC = 0;
-        for (auto &a : players[i]->abilities)
+    if (&player == players[1]) {
+        int c = 0;
+        for (auto &p : p2Pieces)
         {
-            if (a != nullptr)
-                abilityC++;
-        }
-        std::cout << "Abilities: " << abilityC << std::endl;
-
-        //Print known pieces of other player(s)
-        c = 0;
-        for (auto &p : players[i]->pieces)
-        {
-            if (p.second->getInfo() != "")
+            std::cout << p.first << ": " << p.second;
+            if (c == 3 || c == 7)
             {
-                bool in = false;
-                for (auto &known : player.knownPieces)
-                {
-                    if (known.first == p.first)
-                    {
-                        in = true;
-                        break;
-                    }
-                }
-                if (in)
-                {
-                    std::cout << p.first << ": " << player.knownPieces[p.first];
-                }
-                else
-                {
-                    std::cout << p.first << ": ?";
-                }
-                if ((c + 1) % 4 == 0)
-                {
-                    std::cout << std::endl;
-                }
-                else
-                {
-                    std::cout << "\t";
-                }
-                c++;
+                std::cout << std::endl;
             }
+            else
+            {
+                std::cout << "\t";
+            }
+            c++;
+        }
+    } else { //Print what player 1 knows about player 2
+        int c = 0;
+        for (auto &p : p2Pieces)
+        {
+            std::cout << p.first << ": ";
+            bool unknown = true;
+            for (auto &known : players[0]->knownPieces) {
+                if (p.first == known.first) unknown = false;
+            }
+            if (unknown) std::cout << "?";
+            else std::cout << p.second;
+
+            if (c == 3 || c == 7)
+            {
+                std::cout << std::endl;
+            }
+            else
+            {
+                std::cout << "\t";
+            }
+            c++;
         }
     }
 }

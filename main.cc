@@ -23,11 +23,10 @@ int main(int argc, char *argv[])
     Player p1{Direction::Down};
     Player p2{Direction::Up};
 
-    //Create graphics
+    //Make players vector
     vector<Player *> players;
     players.emplace_back(&p1);
     players.emplace_back(&p2);
-    Graphics *g = new TextDisplay{players};
 
     int i = 0;
 
@@ -255,16 +254,9 @@ int main(int argc, char *argv[])
         ++i;
     }
 
-    // Create serverports
-    p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
-    p1.addPiece("S2", new Serverport{Point{4, 0}, &p1}, players);
-    p2.addPiece("S1", new Serverport{Point{3, 7}, &p2}, players);
-    p2.addPiece("S2", new Serverport{Point{4, 7}, &p2}, players);
 
-    cout << "done loading stuff from command line" << endl
-         << endl;
-
-    if (p1.pieceCount() < 10)
+    //Default link setup
+    if (p1.pieceCount() < 8)
     {
         char which = 'a';
         for (int i = 0; i < 8; i++)
@@ -279,7 +271,7 @@ int main(int argc, char *argv[])
             }
         }
     }
-    if (p2.pieceCount() < 10)
+    if (p2.pieceCount() < 8)
     {
         char which = 'A';
         for (int i = 0; i < 8; i++)
@@ -294,6 +286,15 @@ int main(int argc, char *argv[])
             }
         }
     }
+
+    //Create graphics
+    Graphics *g = new TextDisplay{players};
+
+    // Create serverports
+    p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
+    p1.addPiece("S2", new Serverport{Point{4, 0}, &p1}, players);
+    p2.addPiece("S1", new Serverport{Point{3, 7}, &p2}, players);
+    p2.addPiece("S2", new Serverport{Point{4, 7}, &p2}, players);
 
     string command;
     ifstream inFile{};

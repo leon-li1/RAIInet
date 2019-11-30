@@ -17,8 +17,11 @@ void Subject::detach(Observer *o)
 
 void Subject::notifyObservers()
 {
-    for (auto &ob : observers)
-        ob->notify(*this);
+    for (auto &ob : observers) {
+        if (ob) {
+            ob->notify(*this);
+        }
+    }
 }
 
 Subject::~Subject() {}
