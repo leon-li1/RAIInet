@@ -13,9 +13,9 @@ void Teleport::use(std::istream &in) {
     Point pos;
     in >> pieceName >> pos;    
 
-    if (owner->getPiece(pieceName)) {
+    if (owner->getPiece(pieceName) && pieceName[0] != 'S' && pieceName[0] != 'M' && pieceName[0] != 'W') {
         owner->getPiece(pieceName)->setPos(pos);
     } else {
-        throw InvalidMove{"You must teleport a piece you own."};
+        throw InvalidMove{"You must teleport a link you own."};
     }
 }
