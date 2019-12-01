@@ -9,6 +9,17 @@ TextDisplay::TextDisplay(std::vector<Player *> players, std::vector<std::string>
 
 void TextDisplay::update(Player &player)
 {
+    //Update pieces array
+    for (auto &p : players[0]->pieces) {
+        if (p.second->getInfo() != "") {
+            p1Pieces[p.first] = p.second->getInfo();
+        }
+    }
+    for (auto &p : players[1]->pieces) {
+        if (p.second->getInfo() != "") {
+            p2Pieces[p.first] = p.second->getInfo();
+        }
+    }
     //Print player name
     std::cout << "Player 1:" << std::endl;
 
