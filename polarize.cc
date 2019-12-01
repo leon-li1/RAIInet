@@ -14,7 +14,7 @@ void Polarize::use(std::istream &in)
     std::string pieceName;
     in >> pieceName;
     Piece *thePiece;
-    if (owner->getPiece(pieceName) == nullptr) {
+    if (owner->getPiece(pieceName)) {
         thePiece = owner->getPiece(pieceName);
     } else {
         thePiece = other->getPiece(pieceName);
@@ -28,11 +28,11 @@ void Polarize::use(std::istream &in)
 
     std::vector<Player *> ps{owner, other};
 
-    if (owner->owns(thePiece)) {
-        owner->removePiece(thePiece, ps);
-        if (type[0] == 'V')
-            owner->addPiece(pieceName, new Data{speed, pos, playerOwner, strength}, ps);
-        else //piece is data
-            owner->addPiece(pieceName, new Virus{speed, pos, playerOwner, strength}, ps);
-    }
+
+    playerOwner->removePiece(thePiece, ps);
+    if (type[0] == 'V')
+        playerOwner->addPiece(pieceName, new Data{speed, pos, playerOwner, strength}, ps);
+    else //piece is data
+        playerOwner->addPiece(pieceName, new Virus{speed, pos, playerOwner, strength}, ps);
+
 }
