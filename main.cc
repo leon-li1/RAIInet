@@ -418,6 +418,12 @@ int main(int argc, char *argv[])
 
     while (true)
     {
+        //Game over
+        if (p2.getVirusCount() > 3 || p1.getDataCount() > 3 || p1.getVirusCount() > 3 || p2.getDataCount() > 3) {
+            g->gameOver(players);
+            break;
+        }
+        
         if (inFile.eof()) {
             mode = "cin";
         }

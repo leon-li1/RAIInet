@@ -196,3 +196,19 @@ void TextDisplay::printAbilities(Player &player) {
         }
     }
 }
+
+void TextDisplay::gameOver(std::vector<Player *> players) {
+    if (players[1]->getVirusCount() > 3 || players[0]->getDataCount() > 3) {    //Player 1 wins
+        std::cout << "Player 1 wins" << std::endl;
+    } else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3) { //Player 2 wins
+        std::cout << "Player 2 wins" << std::endl;
+    }
+
+    std::cout << "Final score: " << std::endl;
+
+    std::cout << "Player " << 1 << ":" << std::endl;
+    std::cout << "Downloaded: " << players[0]->dataCount << "D, " << players[0]->virusCount << "V" << std::endl;
+
+    std::cout << "Player " << 2 << ":" << std::endl;
+    std::cout << "Downloaded: " << players[1]->dataCount << "D, " << players[1]->virusCount << "V" << std::endl;
+}
