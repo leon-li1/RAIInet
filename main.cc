@@ -555,13 +555,14 @@ int main(int argc, char *argv[])
                 {
                     cerr << "You have already used an ability this turn" << endl;
                 }
+                usedAbility = true;
             }
             catch (InvalidMove im)
             {
                 cerr << im.what() << endl;
             }
 
-        usedAbility = true;
+        
         
         }
         else if (command == "board")
