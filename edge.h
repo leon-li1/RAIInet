@@ -12,6 +12,7 @@ class Edge
     Edge(Direction);
     ~Edge();
     bool isPassed(Point);
+    Direction getDir();
 };
 
 #endif

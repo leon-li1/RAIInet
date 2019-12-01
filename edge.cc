@@ -19,3 +19,7 @@ bool Edge::isPassed(Point p)
 
     return false;
 }
+
+Direction Edge::getDir() {
+    return dir;
+}
