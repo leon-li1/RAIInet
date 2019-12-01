@@ -4,7 +4,8 @@
 #include "player.h"
 #include "piece.h"
 
-TextDisplay::TextDisplay(std::vector<Player *> players) : Graphics{players} {}
+TextDisplay::TextDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities) 
+: Graphics{players, p1Abilities, p2Abilities} {}
 
 void TextDisplay::update(Player &player)
 {
@@ -147,6 +148,24 @@ void TextDisplay::update(Player &player)
                 std::cout << "\t";
             }
             c++;
+        }
+    }
+}
+
+void TextDisplay::printAbilities(Player &player) {
+    if (&player == players[0]) { //p1
+        for (int i = 0; i < (int)p1Abilities.size(); i++) {
+            std::string used = "unavailible";
+            if (player.abilities[i]) used = "availible";
+            std::cout << i + 1 << ":\t" << p1Abilities[i] << "\t";
+            if (p1Abilities[i].length() < 8) std::cout << "\t";
+            std::cout << used << std::endl;
+        }
+    } else { //p2
+        for (int i = 0; i < (int)p2Abilities.size(); i++) {
+            std::string used = "unavailible";
+            if (player.abilities[i]) used = "availible";
+            std::cout << i + 1 << ":\t" << p2Abilities[i] << ":\t" << used << std::endl;
         }
     }
 }

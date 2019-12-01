@@ -158,3 +158,7 @@ Piece *Player::getPiece(std::string pieceName) {
 void Player::setOther(Player *other) {
     this->other = other;
 }
+
+int Player::abilityCount() {
+    return (int)abilities.size();
+}

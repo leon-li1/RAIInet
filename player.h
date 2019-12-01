@@ -41,7 +41,7 @@ public:
     void setDataCount(int newCount);
     Piece *getPiece(std::string pieceName);
     void setOther(Player *other);
-
+    int abilityCount();
 
     friend class Graphics;
     friend class TextDisplay;

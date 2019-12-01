@@ -39,8 +39,11 @@ int main(int argc, char *argv[])
     players.emplace_back(&p1);
     players.emplace_back(&p2);
 
+    //List of abilities for display
+    vector<string> p1Abilities;
+    vector<string> p2Abilities;
+    
     int i = 0;
-
     // Loop through arguments
     while (i < argc)
     {
@@ -83,11 +86,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Linkboost{&p1, &p2});
+                        p1Abilities.emplace_back("Link boost");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Linkboost{&p2, &p1});
+                        p2Abilities.emplace_back("Link boost");
                     }
                 }
                 else if (a[j] == 'F')
@@ -103,11 +108,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new FirewallAbility{&p1, &p2});
+                        p1Abilities.emplace_back("Firewall");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new FirewallAbility{&p2, &p1});
+                        p2Abilities.emplace_back("Firewall");
                     }
                 }
                 else if (a[j] == 'D')
@@ -123,11 +130,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Download{&p1, &p2});
+                        p1Abilities.emplace_back("Download");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Download{&p2, &p1});
+                        p2Abilities.emplace_back("Download");
                     }
                 }
                 else if (a[j] == 'S')
@@ -143,11 +152,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Scan{&p1, &p2});
+                        p1Abilities.emplace_back("Scan");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Scan{&p2, &p1});
+                        p2Abilities.emplace_back("Scan");
                     }
                 }
                 else if (a[j] == 'P')
@@ -163,11 +174,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Polarize{&p1, &p2});
+                        p1Abilities.emplace_back("Polarize");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Polarize{&p2, &p1});
+                        p2Abilities.emplace_back("Polarize");
                     }
                 }
                 else if (a[j] == 'T')
@@ -183,11 +196,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Teleport{&p1, &p2});
+                        p1Abilities.emplace_back("Teleport");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Teleport{&p2, &p1});
+                        p2Abilities.emplace_back("Teleport");
                     }
                 }
                 else if (a[j] == 'R')
@@ -203,11 +218,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Steal{&p1, &p2});
+                        p1Abilities.emplace_back("Steal");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Steal{&p2, &p1});
+                        p2Abilities.emplace_back("Steal");
                     }
                 }
                 else if (a[j] == 'G')
@@ -223,11 +240,13 @@ int main(int argc, char *argv[])
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
                         p2.addAbility(new Strengthen{&p1, &p2});
+                        p1Abilities.emplace_back("Strenghten");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Strengthen{&p2, &p1});
+                        p2Abilities.emplace_back("Strenghten");
                     }
                 }
                 else
@@ -361,8 +380,34 @@ int main(int argc, char *argv[])
         }
     }
 
+    //Default abilites
+    if (p1.abilityCount() == 0) { //player 1 defaults
+        p1.addAbility(new Linkboost{&p1, &p2});
+        p1.addAbility(new FirewallAbility{&p1, &p2});
+        p1.addAbility(new Download{&p1, &p2});
+        p1.addAbility(new Scan{&p1, &p2});
+        p1.addAbility(new Polarize{&p1, &p2});
+        p1Abilities.emplace_back("Link boost");
+        p1Abilities.emplace_back("Firewall");
+        p1Abilities.emplace_back("Download");
+        p1Abilities.emplace_back("Scan");
+        p1Abilities.emplace_back("Polarize");
+    }
+    if (p2.abilityCount() == 0) { //player 2 defaults
+        p2.addAbility(new Linkboost{&p2, &p1});
+        p2.addAbility(new FirewallAbility{&p2, &p1});
+        p2.addAbility(new Download{&p2, &p1});
+        p2.addAbility(new Scan{&p2, &p1});
+        p2.addAbility(new Polarize{&p2, &p1});
+        p2Abilities.emplace_back("Link boost");
+        p2Abilities.emplace_back("Firewall");
+        p2Abilities.emplace_back("Download");
+        p2Abilities.emplace_back("Scan");
+        p2Abilities.emplace_back("Polarize");
+    }
+
     //Create graphics
-    Graphics *g = new TextDisplay{players};
+    Graphics *g = new TextDisplay{players, p1Abilities, p2Abilities};
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
@@ -454,57 +499,73 @@ int main(int argc, char *argv[])
         }
         else if (command == "abilities")
         {
-            //g->printAbilities();
-            cout << "abilites will be printed" << endl;
+            if (turn == "p1")
+            {
+                g->printAbilities(p1);
+            }
+            else if (turn == "p2")
+            {
+                g->printAbilities(p2);
+            }
         }
         else if (command == "ability")
         {
-            int which;
-            if (mode == "cin")
-            {
-                cin >> which;
-                if (cin.fail())
-                {
-                    cin.clear();
-                    cin.ignore();
-                    cerr << "Invalid ability" << endl;
-                    continue;
-                }
-            }
-            else if (mode == "sequence")
-            {
-                inFile >> which;
-                if (inFile.fail())
-                {
-                    inFile.clear();
-                    inFile.ignore();
-                    cerr << "Invalid ability" << endl;
-                    continue;
-                }
-            }
-
-            if (which < 1 || which > 5)
-            {
-                cout << "Invalid ability" << endl;
-                continue;
-            }
             try
             {
-                if (turn == "p1")
+                int abNum = -1;
+                if (mode == "cin")
                 {
-                    //p1->useAbility(which-1);
-                    cout << "Player 1 used ability " << which << endl;
+                    cin >> abNum;
+                    if (abNum != -1)
+                    {
+                        if (abNum < 1 || abNum > 5)
+                        {
+                            cout << "Invalid ability" << endl;
+                            continue;
+                        }
+                        if (turn == "p1")
+                        {
+                            p1.useAbility(abNum, cin);
+                        }
+                        else if (turn == "p2")
+                        {
+                            p2.useAbility(abNum, cin);
+                        } 
+                    } else {
+                        cin.clear();
+                        cin.ignore();
+                        cerr << "Invalid ability" << endl;
+                        continue;
+                    }
                 }
-                else if (turn == "p2")
+                else if (mode == "sequence")
                 {
-                    //p2->useAbility(which-1);
-                    cout << "Player 2 used ability " << which << endl;
+                    inFile >> abNum;
+                    if (abNum != -1)
+                    {
+                        if (abNum < 1 || abNum > 5)
+                        {
+                            cout << "Invalid ability" << endl;
+                            continue;
+                        }
+                        if (turn == "p1")
+                        {
+                            p1.useAbility(abNum, inFile);
+                        }
+                        else if (turn == "p2")
+                        {
+                            p2.useAbility(abNum, inFile);
+                        }
+                    } else {
+                        inFile.clear();
+                        inFile.ignore();
+                        cerr << "Invalid ability" << endl;
+                    }
                 }
             }
-            catch (InvalidAbility)
+            catch (InvalidMove im)
             {
-                cout << "Ability already used" << endl;
-                continue;
+                cerr << im.what() << endl;
             }
         }
         else if (command == "board")
