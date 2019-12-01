@@ -418,8 +418,13 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-        if (inFile.eof()) 
+        if (inFile.eof()) {
             mode = "cin";
+        }
+
+        if (cin.eof()) {
+            break;
+        }
 
         if (mode == "cin") {
             cin >> command;
