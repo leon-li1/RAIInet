@@ -172,10 +172,10 @@ void TextDisplay::printAbilities(Player &player) {
         
         for (int i = 0; i < (int) p1Abilities.size(); i++) {
             
-            std::string used = "unavailible";
+            std::string used = "unavailable";
             
             if (player.abilities[i])
-                used = "availible";
+                used = "available";
             
             std::cout << i + 1 << ":\t" << p1Abilities[i] << "\t";
             if (p1Abilities[i].length() < 8)
@@ -187,10 +187,10 @@ void TextDisplay::printAbilities(Player &player) {
      
         for (int i = 0; i < (int) p2Abilities.size(); i++) {
             
-            std::string used = "unavailible";
+            std::string used = "unavailable";
             
             if (player.abilities[i])
-                used = "availible";
+                used = "available";
             
             std::cout << i + 1 << ":\t" << p2Abilities[i] << ":\t" << used << std::endl;
         }

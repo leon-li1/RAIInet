@@ -239,14 +239,14 @@ int main(int argc, char *argv[])
                     if (command == "-ability1")
                     {
                         cout << "to player 1 in position " << j + 1 << endl;
-                        p2.addAbility(new Strengthen{&p1, &p2});
-                        p1Abilities.emplace_back("Strenghten");
+                        p1.addAbility(new Strengthen{&p1, &p2});
+                        p1Abilities.emplace_back("Strengthen");
                     }
                     else if (command == "-ability2")
                     {
                         cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Strengthen{&p2, &p1});
-                        p2Abilities.emplace_back("Strenghten");
+                        p2Abilities.emplace_back("Strengthen");
                     }
                 }
                 else
