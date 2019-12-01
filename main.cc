@@ -420,10 +420,16 @@ int main(int argc, char *argv[])
         if (inFile.eof()) 
             mode = "cin";
 
-        if (mode == "cin")
+        if (mode == "cin") {
             cin >> command;
-        else if (mode == "sequence") 
+        } else if (mode == "sequence") {
             inFile >> command;
+            if (inFile.fail()) {
+                mode = "cin";
+                continue;
+            }
+        }
+        
 
         if (command == "move")
         {

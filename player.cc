@@ -83,13 +83,15 @@ void Player::removePiece(Piece *piece, std::vector<Player *> players)
     }
     
     //erase it from the map
-    for (auto &p : pieces)
-    {
-        if (p.second == piece) {
-            delete piece;
-            p.second = nullptr;
-            pieces.erase(p.first);
-            return;
+    for (auto &pl : players) {
+        for (auto &p : pl->pieces)
+        {
+            if (p.second == piece) {
+                delete piece;
+                p.second = nullptr;
+                pieces.erase(p.first);
+                return;
+            }
         }
     }
 }

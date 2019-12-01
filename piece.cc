@@ -27,7 +27,7 @@ void Piece::setPos(Point newPos) {
     }
     try {
         pos = newPos;
-        this->notifyObservers(); //this function is failing
+        this->notifyObservers();
     } catch (InvalidMove im) {
         pos = oldPos;
         throw im;
