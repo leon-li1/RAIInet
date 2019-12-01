@@ -1,5 +1,6 @@
 #include "subject.h"
 #include "observer.h"
+#include "invalidMove.h"
 
 void Subject::attach(Observer *o)
 {
@@ -19,7 +20,11 @@ void Subject::notifyObservers()
 {
     for (auto &ob : observers) {
         if (ob) {
-            ob->notify(*this);
+            try {
+                ob->notify(*this);
+            } catch (InvalidMove) {
+                return;
+            }
         }
     }
 }

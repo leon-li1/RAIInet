@@ -50,8 +50,10 @@ void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *>
     //add observers
     for (auto &pl : players) {
         for (auto &p : pl->pieces) {
-            (p.second)->attach(piece);
-            piece->attach(p.second);
+            if (p.second != piece) {
+                (p.second)->attach(piece);
+                piece->attach(p.second);
+            }
         }
     }
 
