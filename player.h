@@ -7,7 +7,6 @@
 
 class Piece;
 class Ability;
-class InvalidAbility;
 class Virus;
 class Data;
 

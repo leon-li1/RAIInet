@@ -6,7 +6,6 @@
 #include "point.h"
 #include "data.h"
 #include "virus.h"
-#include "invalidAbility.h"
 #include "invalidMove.h"
 
 Player::Player(Direction dir) : dataCount{0}, virusCount{0}, adjacentEdge{Edge{dir}} {}
@@ -17,7 +16,8 @@ void Player::move(std::string pieceName, Direction direction)
     for (auto &p : pieces) {
         if (p.first == pieceName) inArray = true;
     }
-    if (!inArray) throw InvalidMove{"You must move a link you own."};
+    if (!inArray) 
+        throw InvalidMove{"You must move a link you own."};
 
     Piece *thePiece = pieces[pieceName];
     Point newPos = thePiece->getPos();
@@ -109,7 +109,7 @@ void Player::useAbility(int ability, std::istream &in)
 {
 
     if (!abilities[ability])
-        throw InvalidAbility{};
+        throw InvalidMove{"You don't have this ability"};
 
     abilities[ability]->use(in);
     abilities[ability] = nullptr;

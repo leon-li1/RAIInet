@@ -3,9 +3,9 @@
 #include <string>
 #include <exception>
 #include <sstream>
+#include <vector>
 #include "player.h"
 #include "direction.h"
-#include "invalidAbility.h"
 #include "invalidMove.h"
 #include "data.h"
 #include "virus.h"
@@ -281,24 +281,22 @@ int main(int argc, char *argv[])
 
             for (int j = 0; j < (int)l.length(); ++j)
             {
-
                 if (l[j] == 'D')
                 {
-
                     // Scale strength to 1-4
                     int strength = l[j + 1] - '0';
 
                     ++linkCount["D" + to_string(strength)];
 
-                    if (command == "-link1")
+                    if (command == "-link1")  //use a static cast
                     {
                         cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
-                        p1.addPiece(to_string(which), new Data{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
+                        p1.addPiece(string(1, which), new Data{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
                         cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
-                        p2.addPiece(to_string(which), new Data{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
+                        p2.addPiece(string(1, which), new Data{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -313,12 +311,12 @@ int main(int argc, char *argv[])
                     if (command == "-link1")
                     {
                         cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
-                        p1.addPiece(to_string(which), new Virus{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
+                        p1.addPiece(string(1, which), new Virus{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
                         cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
-                        p2.addPiece(to_string(which), new Virus{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
+                        p2.addPiece(string(1, which), new Virus{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -335,7 +333,6 @@ int main(int argc, char *argv[])
                     return 1;
                 }
             }
-
             ++i;
         }
         else if (command == "-graphics")
@@ -348,35 +345,29 @@ int main(int argc, char *argv[])
     }
 
 
-    //Default link setup
+    //Default link setup for p1
     if (p1.pieceCount() < 8)
     {
         char which = 'a';
         for (int i = 0; i < 8; i++)
         {
             if (i < 4)
-            {
                 p1.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4 ? 1 : 0)}, &p1, i + 1}, players);
-            }
             else if (i >= 4)
-            {
                 p1.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4 ? 1 : 0)}, &p1, (i % 4) + 1}, players);
-            }
         }
     }
+
+    //Default link setup for p2
     if (p2.pieceCount() < 8)
     {
         char which = 'A';
         for (int i = 0; i < 8; i++)
         {
             if (i < 4)
-            {
                 p2.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4 ? 6 : 7)}, &p2, i + 1}, players);
-            }
             else if (i >= 4)
-            {
                 p2.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4 ? 6 : 7)}, &p2, (i % 4) + 1}, players);
-            }
         }
     }
 
@@ -393,6 +384,7 @@ int main(int argc, char *argv[])
         p1Abilities.emplace_back("Scan");
         p1Abilities.emplace_back("Polarize");
     }
+
     if (p2.abilityCount() == 0) { //player 2 defaults
         p2.addAbility(new Linkboost{&p2, &p1});
         p2.addAbility(new FirewallAbility{&p2, &p1});
@@ -424,20 +416,19 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-
-        if (inFile.eof()) {
+        if (inFile.eof()) 
             mode = "cin";
-        }
-        if (mode == "cin") {
+
+        if (mode == "cin")
             cin >> command;
-        }
-        else if (mode == "sequence") {
+        else if (mode == "sequence") 
             inFile >> command;
-        }
+
         if (command == "move")
         {
             string which;
             string direction;
+
             if (mode == "cin")
             {
                 cin >> which;
@@ -474,11 +465,11 @@ int main(int argc, char *argv[])
             {
                 if (turn == "p1")
                 {
-                    p1.move(which, d); //check this
+                    p1.move(which, d); 
                 }
                 else if (turn == "p2")
                 {
-                    p2.move(which, d); //check this
+                    p2.move(which, d);
                 }
             }
             catch (InvalidMove im)
@@ -490,24 +481,16 @@ int main(int argc, char *argv[])
             turn = (turn == "p1") ? "p2" : "p1";
             //cout << "moving " << which << " in direction " << direction << endl;
             if (turn == "p1")
-            {
                 g->update(p1);
-            }
             else if (turn == "p2")
-            {
                 g->update(p2);
-            }
         }
         else if (command == "abilities")
         {
             if (turn == "p1")
-            {
                 g->printAbilities(p1);
-            }
             else if (turn == "p2")
-            {
                 g->printAbilities(p2);
-            }
         }
         else if (command == "ability")
         {   
@@ -553,13 +536,9 @@ int main(int argc, char *argv[])
         else if (command == "board")
         {
             if (turn == "p1")
-            {
                 g->update(p1);
-            }
             else if (turn == "p2")
-            {
                 g->update(p2);
-            }
         }
         else if (command == "sequence")
         {
@@ -578,7 +557,9 @@ int main(int argc, char *argv[])
         else if (command == "quit")
         {
             break;
-        } else {
+        } 
+        else 
+        {
             cerr << "Invalid command" << endl;
         }
     }
