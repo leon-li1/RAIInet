@@ -290,13 +290,13 @@ int main(int argc, char *argv[])
 
                     if (command == "-link1")  //use a static cast
                     {
-                        cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
-                        p1.addPiece(string(1, which), new Data{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
+                        //cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
+                        p1.addPiece(string(1, which), new Data{1, Point{j / 2, (j == 6 || j == 8 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
-                        cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
-                        p2.addPiece(string(1, which), new Data{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
+                        //cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
+                        p2.addPiece(string(1, which), new Data{1, Point{j / 2, (j == 6 || j == 8 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -310,13 +310,13 @@ int main(int argc, char *argv[])
 
                     if (command == "-link1")
                     {
-                        cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
-                        p1.addPiece(string(1, which), new Virus{1, Point{j, (j == 3 || j == 4 ? 1 : 0)}, &p1, strength}, players);
+                        //cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
+                        p1.addPiece(string(1, which), new Virus{1, Point{j / 2, (j == 6 || j == 8 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
-                        cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
-                        p2.addPiece(string(1, which), new Virus{1, Point{j, (j == 3 || j == 4 ? 6 : 7)}, &p2, strength}, players);
+                        //cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
+                        p2.addPiece(string(1, which), new Virus{1, Point{j / 2, (j == 6 || j == 8 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
                     ++j;
@@ -344,6 +344,7 @@ int main(int argc, char *argv[])
         ++i;
     }
 
+    //cout << p1.pieceCount() << " p2: " << p2.pieceCount() << endl;
 
     //Default link setup for p1
     if (p1.pieceCount() < 8)
@@ -353,7 +354,7 @@ int main(int argc, char *argv[])
         {
             if (i < 4)
                 p1.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4 ? 1 : 0)}, &p1, i + 1}, players);
-            else if (i >= 4)
+            else
                 p1.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4 ? 1 : 0)}, &p1, (i % 4) + 1}, players);
         }
     }
@@ -366,7 +367,7 @@ int main(int argc, char *argv[])
         {
             if (i < 4)
                 p2.addPiece(string(1, which + i), new Virus{1, Point{i, (i == 3 || i == 4 ? 6 : 7)}, &p2, i + 1}, players);
-            else if (i >= 4)
+            else
                 p2.addPiece(string(1, which + i), new Data{1, Point{i, (i == 3 || i == 4 ? 6 : 7)}, &p2, (i % 4) + 1}, players);
         }
     }
@@ -464,13 +465,9 @@ int main(int argc, char *argv[])
             try
             {
                 if (turn == "p1")
-                {
                     p1.move(which, d); 
-                }
                 else if (turn == "p2")
-                {
                     p2.move(which, d);
-                }
             }
             catch (InvalidMove im)
             {

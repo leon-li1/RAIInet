@@ -125,7 +125,7 @@ Edge Player::getEdge() {
 }
 
 int Player::pieceCount() {
-    return (int)pieces.size();
+    return (int) pieces.size();
 }
 
 std::string Player::getPieceInfo(std::string pieceName) {
