@@ -425,14 +425,15 @@ int main(int argc, char *argv[])
     while (true)
     {
 
-        if (inFile.eof())
+        if (inFile.eof()) {
             mode = "cin";
-
-        if (mode == "cin")
+        }
+        if (mode == "cin") {
             cin >> command;
-        else if (mode == "sequence")
+        }
+        else if (mode == "sequence") {
             inFile >> command;
-
+        }
         if (command == "move")
         {
             string which;
@@ -509,58 +510,39 @@ int main(int argc, char *argv[])
             }
         }
         else if (command == "ability")
-        {
+        {   
             try
             {
-                int abNum = -1;
-                if (mode == "cin")
-                {
-                    cin >> abNum;
-                    if (abNum != -1)
-                    {
-                        if (abNum < 1 || abNum > 5)
-                        {
-                            cout << "Invalid ability" << endl;
-                            continue;
-                        }
-                        if (turn == "p1")
-                        {
-                            p1.useAbility(abNum, cin);
-                        }
-                        else if (turn == "p2")
-                        {
-                            p2.useAbility(abNum, cin);
-                        } 
-                    } else {
+                int abNum;
+                if (mode == "cin") {
+                    if (!(cin >> abNum)) {
+                        cerr << "Invalid ability" << endl;
                         cin.clear();
                         cin.ignore();
+                        continue;
+                    }
+                } else if (mode == "sequence") {
+                    if (!(cin >> abNum)) {
                         cerr << "Invalid ability" << endl;
+                        cin.clear();
+                        cin.ignore();
                         continue;
                     }
                 }
-                else if (mode == "sequence")
+                if (abNum < 1 || abNum > 5)
                 {
-                    inFile >> abNum;
-                    if (abNum != -1)
-                    {
-                        if (abNum < 1 || abNum > 5)
-                        {
-                            cout << "Invalid ability" << endl;
-                            continue;
-                        }
-                        if (turn == "p1")
-                        {
-                            p1.useAbility(abNum, inFile);
-                        }
-                        else if (turn == "p2")
-                        {
-                            p2.useAbility(abNum, inFile);
-                        }
-                    } else {
-                        inFile.clear();
-                        inFile.ignore();
-                        cerr << "Invalid ability" << endl;
-                    }
+                    cout << "Invalid ability" << endl;
+                    continue;
+                }
+                if (turn == "p1")
+                {
+                    if (mode == "cin") p1.useAbility(abNum-1, cin);
+                    else if (mode == "sequence") p1.useAbility(abNum-1, inFile);
+                }
+                else if (turn == "p2")
+                {
+                    if (mode == "cin") p2.useAbility(abNum-1, cin);
+                    else if (mode == "sequence") p2.useAbility(abNum-1, inFile);
                 }
             }
             catch (InvalidMove im)
