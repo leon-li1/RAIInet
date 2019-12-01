@@ -238,13 +238,13 @@ int main(int argc, char *argv[])
                     cout << "strengthen ";
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
+                        //cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Strengthen{&p1, &p2});
                         p1Abilities.emplace_back("Strengthen");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
+                        //cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Strengthen{&p2, &p1});
                         p2Abilities.emplace_back("Strengthen");
                     }
@@ -412,6 +412,7 @@ int main(int argc, char *argv[])
     ifstream inFile{};
     string turn = "p1";
     string mode = "cin";
+    bool usedAbility = false;
 
     g->update(p1);
 
@@ -481,12 +482,13 @@ int main(int argc, char *argv[])
                 continue;
             }
 
-            turn = (turn == "p1") ? "p2" : "p1";
             //cout << "moving " << which << " in direction " << direction << endl;
+            turn = (turn == "p1") ? "p2" : "p1";
             if (turn == "p1")
                 g->update(p1);
             else if (turn == "p2")
-                g->update(p2);
+                g->update(p2);            
+            usedAbility = false;
         }
         else if (command == "abilities")
         {
@@ -508,33 +510,48 @@ int main(int argc, char *argv[])
                         continue;
                     }
                 } else if (mode == "sequence") {
-                    if (!(cin >> abNum)) {
+                    if (!(inFile >> abNum)) {
                         cerr << "Invalid ability" << endl;
-                        cin.clear();
-                        cin.ignore();
+                        inFile.clear();
+                        inFile.ignore();
                         continue;
                     }
                 }
-                if (abNum < 1 || abNum > 5)
+                
+                if (!usedAbility) 
                 {
-                    cout << "Invalid ability" << endl;
-                    continue;
+                    if (abNum < 1 || abNum > 5)
+                    {
+                        cout << "Invalid ability" << endl;
+                        continue;
+                    }
+                    if (turn == "p1")
+                    {
+                        if (mode == "cin")
+                            p1.useAbility(abNum - 1, cin);
+                        else if (mode == "sequence") 
+                            p1.useAbility(abNum - 1, inFile);
+                    }
+                    else if (turn == "p2")
+                    {
+                        if (mode == "cin")
+                            p2.useAbility(abNum - 1, cin);
+                        else if (mode == "sequence")
+                            p2.useAbility(abNum - 1, inFile);
+                    }
                 }
-                if (turn == "p1")
+                else 
                 {
-                    if (mode == "cin") p1.useAbility(abNum-1, cin);
-                    else if (mode == "sequence") p1.useAbility(abNum-1, inFile);
-                }
-                else if (turn == "p2")
-                {
-                    if (mode == "cin") p2.useAbility(abNum-1, cin);
-                    else if (mode == "sequence") p2.useAbility(abNum-1, inFile);
+                    cerr << "You have already used an ability this turn" << endl;
                 }
             }
             catch (InvalidMove im)
             {
                 cerr << im.what() << endl;
             }
+
+        usedAbility = true;
+        
         }
         else if (command == "board")
         {
