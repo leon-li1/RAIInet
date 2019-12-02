@@ -43,6 +43,9 @@ int main(int argc, char *argv[])
     //List of abilities for display
     vector<string> p1Abilities;
     vector<string> p2Abilities;
+
+    //Whether to use text graphics or not
+    bool textgraphics = true;
     
     int i = 0;
     // Loop through arguments
@@ -338,8 +341,7 @@ int main(int argc, char *argv[])
         }
         else if (command == "-graphics")
         {
-            cout << "fancy graphics enabled" << endl;
-            //g = new GraphicsDisplay{};
+            textgraphics = false;
         }
 
         ++i;
@@ -401,8 +403,12 @@ int main(int argc, char *argv[])
     }
 
     //Create graphics
-    Graphics *g = new TextDisplay{players, p1Abilities, p2Abilities};
-    //Graphics *g = new GraphicsDisplay{players};
+    Graphics *g;
+    if (textgraphics) {
+        g = new TextDisplay{players, p1Abilities, p2Abilities};
+    } else {
+        g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
+    }
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);

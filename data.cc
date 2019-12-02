@@ -2,6 +2,7 @@
 #include "data.h"
 #include "invalidMove.h"
 #include "player.h"
+#include "point.h"
 
 Data::Data(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner}, strength{strength}, speed{speed} {}
 

@@ -17,7 +17,7 @@ class Player
     int dataCount;
     int virusCount;
     std::map<std::string, std::string> knownPieces;
-    Edge adjacentEdge;
+    Edge oppositeEdge;
     Player *other;
 
 public:

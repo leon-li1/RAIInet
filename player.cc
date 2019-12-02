@@ -8,7 +8,7 @@
 #include "virus.h"
 #include "invalidMove.h"
 
-Player::Player(Direction dir) : dataCount{0}, virusCount{0}, adjacentEdge{Edge{dir}} {}
+Player::Player(Direction dir) : dataCount{0}, virusCount{0}, oppositeEdge{Edge{dir}} {}
 
 void Player::move(std::string pieceName, Direction direction)
 {
@@ -125,7 +125,7 @@ void Player::addKnownPiece(std::string pieceName, std::string info)
 }
 
 Edge Player::getEdge() {
-    return adjacentEdge;
+    return oppositeEdge;
 }
 
 int Player::pieceCount() {

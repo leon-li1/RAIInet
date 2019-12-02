@@ -2,6 +2,7 @@
 #include "piece.h"
 #include "invalidMove.h"
 #include "player.h"
+#include "point.h"
 
 Serverport::Serverport(Point pos, Player *owner) : Piece{pos, owner} {}
 
