@@ -1,28 +1,31 @@
 #include <vector>
 #include "graphics.h"
+#include "window.h"
 #include "graphicsDisplay.h"
 
 
 GraphicsDisplay::GraphicsDisplay(std::vector<Player *> players): Graphics{players} {
-
-    drawBigString(0, 50, "RAIINET");
+    xw = new Xwindow{};
+    xw->drawBigString(0, 50, "RAIINET");
         //draw grid
     for(int i = 0; i < 8; i++){
 
         for(int j = 0; j < 8; j++){
 
             if( (i + j) % 2 == 0){
-                fillRectangle(i*50, j*50, 50, 50, Magenta);
+                xw->fillRectangle(i*50, j*50, 50, 50, Xwindow::Magenta);
             }
 
             else{
-                fillRectangle(i*50, j*50, 50, 50, Cyan);
+                xw->fillRectangle(i*50, j*50, 50, 50, Xwindow::Cyan);
             }
 
         }
     }
 }
 
-void GraphicsDisplay::update(Player &player) override{
+GraphicsDisplay::~GraphicsDisplay(){ delete xw; }
+
+void GraphicsDisplay::update(Player &player) {
 
 }

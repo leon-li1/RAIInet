@@ -11,8 +11,8 @@
 #include "virus.h"
 #include "point.h"
 #include "serverport.h"
-//#include "graphics.h"
-//#include "textDisplay.h"
+#include "graphics.h"
+#include "textDisplay.h"
 #include "graphicsDisplay.h"
 
 using namespace std;
