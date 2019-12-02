@@ -22,6 +22,7 @@
 #include "firewallAbility.h"
 #include "polarize.h"
 #include "scan.h"
+#include "graphicsDisplay.h"
 
 using namespace std;
 
@@ -401,6 +402,7 @@ int main(int argc, char *argv[])
 
     //Create graphics
     Graphics *g = new TextDisplay{players, p1Abilities, p2Abilities};
+    //Graphics *g = new GraphicsDisplay{players};
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
