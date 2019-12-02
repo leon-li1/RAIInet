@@ -404,11 +404,11 @@ int main(int argc, char *argv[])
 
     //Create graphics
     Graphics *g;
-    if (textgraphics) {
+    if (textgraphics) 
         g = new TextDisplay{players, p1Abilities, p2Abilities};
-    } else {
-        g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
-    }
+    // } else {
+    //     g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
+    // }
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);
@@ -432,25 +432,26 @@ int main(int argc, char *argv[])
             break;
         }
         
-        if (inFile.eof()) {
+        if (inFile.eof())
             mode = "cin";
-        }
 
-        if (cin.eof()) {
+        if (cin.eof()) 
             break;
-        }
 
         if (mode == "cin") {
+
             cin >> command;
+
         } else if (mode == "sequence") {
+
             inFile >> command;
+
             if (inFile.fail()) {
                 mode = "cin";
                 continue;
             }
         }
         
-
         if (command == "move")
         {
             string which;
@@ -460,14 +461,29 @@ int main(int argc, char *argv[])
             {
                 cin >> which;
                 cin >> direction;
+
+                if (cin.eof()) 
+                {
+                    cerr << "Invalid direction" << endl;
+                    continue;
+                }
+
             }
             else if (mode == "sequence")
             {
                 inFile >> which;
                 inFile >> direction;
+            
+                if (inFile.eof()) 
+                {
+                    cerr << "Invalid direction" << endl;
+                    continue;
+                }
+
             }
 
             Direction d;
+
             if (direction == "up")
             {
                 d = Direction::Up;
@@ -501,7 +517,6 @@ int main(int argc, char *argv[])
                 continue;
             }
 
-            //cout << "moving " << which << " in direction " << direction << endl;
             turn = (turn == "p1") ? "p2" : "p1";
             if (turn == "p1")
                 g->update(p1);
@@ -602,5 +617,7 @@ int main(int argc, char *argv[])
         {
             cerr << "Invalid command" << endl;
         }
+        command = "";
+
     }
 }

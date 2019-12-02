@@ -178,6 +178,7 @@ void TextDisplay::printAbilities(Player &player) {
                 used = "available";
             
             std::cout << i + 1 << ":\t" << p1Abilities[i] << "\t";
+
             if (p1Abilities[i].length() < 8)
                 std::cout << "\t";
             
@@ -192,7 +193,12 @@ void TextDisplay::printAbilities(Player &player) {
             if (player.abilities[i])
                 used = "available";
             
-            std::cout << i + 1 << ":\t" << p2Abilities[i] << ":\t" << used << std::endl;
+            std::cout << i + 1 << ":\t" << p2Abilities[i] << ":\t";
+
+            if (p2Abilities[i].length() < 8)
+                std::cout << "\t";
+            
+            std::cout << used << std::endl;
         }
     }
 }
