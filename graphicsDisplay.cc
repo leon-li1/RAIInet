@@ -3,7 +3,6 @@
 #include "window.h"
 #include "graphicsDisplay.h"
 
-
 GraphicsDisplay::GraphicsDisplay(std::vector<Player *> players): Graphics{players} {
     xw = new Xwindow{};
     xw->drawBigString(0, 50, "RAIINET");

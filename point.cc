@@ -1,6 +1,6 @@
 #include "point.h"
 
-bool Point::operator==(const Point other) const
+bool Point::operator==(const Point &other) const
 {
     if (x == other.x && y == other.y)
         return true;
@@ -8,7 +8,7 @@ bool Point::operator==(const Point other) const
     return false;
 }
 
-bool Point::operator != (const Point other) const
+bool Point::operator != (const Point &other) const
 {
     return !(*this == other);
 }
@@ -16,5 +16,6 @@ bool Point::operator != (const Point other) const
 std::istream& operator>>(std::istream &in, Point &p){
     in >> p.x;
     in >> p.y;
+    
     return in;
 }
