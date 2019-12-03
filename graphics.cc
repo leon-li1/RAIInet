@@ -10,3 +10,5 @@ Graphics::Graphics(std::vector<Player *> players, std::vector<std::string> p1Abi
         p2Pieces[p.first] = p.second->getInfo();
     }
 }
+
+Graphics::~Graphics() {};

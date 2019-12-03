@@ -22,6 +22,7 @@ class Player
 
 public:
     Player(Direction dir);
+    ~Player();
     void move(std::string pieceName, Direction direction);
     bool owns(Piece *piece);
     void addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players);

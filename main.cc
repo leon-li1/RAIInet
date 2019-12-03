@@ -619,4 +619,5 @@ int main(int argc, char *argv[])
         command = "";
 
     }
+    delete g;
 }

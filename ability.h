@@ -12,6 +12,7 @@ class Ability
     
     public:
     Ability(Player*, Player*);
+    virtual ~Ability() = 0;
     virtual void use(std::istream &in) = 0;
 };
 

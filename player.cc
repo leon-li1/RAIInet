@@ -10,6 +10,15 @@
 
 Player::Player(Direction dir) : dataCount{0}, virusCount{0}, oppositeEdge{Edge{dir}} {}
 
+Player::~Player() {
+    for (auto &p : pieces) {
+        delete p.second;
+    }
+    for (auto &a : abilities) {
+        delete a;
+    }
+}
+
 void Player::move(std::string pieceName, Direction direction)
 {
     bool inArray = false;
@@ -116,6 +125,7 @@ void Player::useAbility(int ability, std::istream &in)
         throw InvalidMove{"You don't have this ability"};
 
     abilities[ability]->use(in);
+    delete abilities[ability];
     abilities[ability] = nullptr;
 }
 
