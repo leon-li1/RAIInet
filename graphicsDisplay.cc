@@ -53,7 +53,7 @@ void GraphicsDisplay::drawCell(bool turn, int x, int y, std::pair<std::string, s
     }
     xw->fillRectangle(25+x*40, 60+y*40, 40, 40, colour); //Draw cell background
     if (info.first != ".") {
-        xw->drawBigString(40+40*x, 80+40*y, info.first, 1);
+        xw->drawString(40+40*x, 80+40*y, info.first, 1);
     }
 }
 
@@ -68,9 +68,9 @@ void GraphicsDisplay::update(Player &player) {
 
     //Redraw player names
     xw->fillRectangle(0,0, 90, 18, 0);
-    xw->drawBigString(10, 10, "Player 1:", 1);
+    xw->drawString(10, 10, "Player 1:", 1);
     xw->fillRectangle(0,420, 90, 18, 0);
-    xw->drawBigString(10, 430, "Player 2:", 1);
+    xw->drawString(10, 430, "Player 2:", 1);
 
     //Update pieces array
     for (auto &p : players[0]->pieces) {
@@ -141,9 +141,9 @@ void GraphicsDisplay::printAbilities(Player &player) {
             if (player.abilities[i])
                 used = "available";
             
-            xw->drawBigString(115, 150+i*40, std::to_string(i + 1), 1);
-            xw->drawBigString(165, 150+i*40, p1Abilities[i], 1);
-            xw->drawBigString(265, 150+i*40, used, 1);
+            xw->drawString(115, 150+i*40, std::to_string(i + 1), 1);
+            xw->drawString(165, 150+i*40, p1Abilities[i], 1);
+            xw->drawString(265, 150+i*40, used, 1);
         }
     } else { //p2
         for (int i = 0; i < (int) p2Abilities.size(); i++) {
@@ -151,9 +151,9 @@ void GraphicsDisplay::printAbilities(Player &player) {
             if (player.abilities[i])
                 used = "available";
             
-            xw->drawBigString(115, 150+i*40, std::to_string(i + 1), 1);
-            xw->drawBigString(165, 150+i*40, p2Abilities[i], 1);
-            xw->drawBigString(265, 150+i*40, used, 1);
+            xw->drawString(115, 150+i*40, std::to_string(i + 1), 1);
+            xw->drawString(165, 150+i*40, p2Abilities[i], 1);
+            xw->drawString(265, 150+i*40, used, 1);
         }
     }
 }
@@ -162,41 +162,41 @@ void GraphicsDisplay::gameOver(std::vector<Player *> players) {
     xw->fillRectangle(0, 0, 500, 500, 0);
 
     if (players[1]->getVirusCount() > 3 || players[0]->getDataCount() > 3) {    //Player 1 wins
-        xw->drawBigString(150, 150, "Player 1 wins!", 1);
+        xw->drawString(150, 150, "Player 1 wins!", 1);
     } else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3) { //Player 2 wins
-        xw->drawBigString(150, 150, "Player 2 wins!", 1);
+        xw->drawString(150, 150, "Player 2 wins!", 1);
     } else { //Default so that we have something to show when demonstrating
-        xw->drawBigString(150, 150, "Player 1 wins!", 1);
+        xw->drawString(150, 150, "Player 1 wins!", 1);
     }
 
-    xw->drawBigString(150, 200, "Final score: ", 1);
+    xw->drawString(150, 200, "Final score: ", 1);
 
     std::string d = "Downloaded: ";
-    xw->drawBigString(150, 250, "Player 1:", 1);
-    xw->drawBigString(150, 275, d + std::to_string(players[0]->dataCount) + "D, " + std::to_string(players[0]->virusCount) + "V", 1);
+    xw->drawString(150, 250, "Player 1:", 1);
+    xw->drawString(150, 275, d + std::to_string(players[0]->dataCount) + "D, " + std::to_string(players[0]->virusCount) + "V", 1);
 
-    xw->drawBigString(150, 325, "Player 2:", 1);
-    xw->drawBigString(150, 350, d + std::to_string(players[1]->dataCount) + "D, " + std::to_string(players[1]->virusCount) + "V", 1);
+    xw->drawString(150, 325, "Player 2:", 1);
+    xw->drawString(150, 350, d + std::to_string(players[1]->dataCount) + "D, " + std::to_string(players[1]->virusCount) + "V", 1);
 }
 
 void GraphicsDisplay::p1Ability() {
     xw->fillRectangle(100, 0, 120, 15, 0);
-    xw->drawBigString(100, 10, "Abilities: " + std::to_string(p1AbCount), 1);
+    xw->drawString(100, 10, "Abilities: " + std::to_string(p1AbCount), 1);
 }
 
 void GraphicsDisplay::p2Ability() {
     xw->fillRectangle(100, 420, 120, 15, 0);
-    xw->drawBigString(100, 430, "Abilities: " + std::to_string(p2AbCount), 1);
+    xw->drawString(100, 430, "Abilities: " + std::to_string(p2AbCount), 1);
 }
 
 void GraphicsDisplay::p1LinkCount() {
     xw->fillRectangle(250, 00, 200, 15, 0);
-    xw->drawBigString(250, 10, "Downloaded: " + std::to_string(p1DCount) + "D, " + std::to_string(p1VCount) + "V", 1);
+    xw->drawString(250, 10, "Downloaded: " + std::to_string(p1DCount) + "D, " + std::to_string(p1VCount) + "V", 1);
 }
 
 void GraphicsDisplay::p2LinkCount() {
     xw->fillRectangle(250, 420, 100, 15, 0);
-    xw->drawBigString(250, 430, "Downloaded: " + std::to_string(p2DCount) + "D, " + std::to_string(p2VCount) + "V", 1);
+    xw->drawString(250, 430, "Downloaded: " + std::to_string(p2DCount) + "D, " + std::to_string(p2VCount) + "V", 1);
 }
 
 void GraphicsDisplay::p1Links(Player &player) {
@@ -206,7 +206,7 @@ void GraphicsDisplay::p1Links(Player &player) {
         int c = 0;
         for (auto &p : p1Pieces)
         {
-            xw->drawBigString(10+c*40, 25, p.first + ": " + p.second, 1);
+            xw->drawString(10+c*40, 25, p.first + ": " + p.second, 1);
             c++;
         }
     } else { //Print what p2 knows about p1
@@ -227,7 +227,7 @@ void GraphicsDisplay::p1Links(Player &player) {
             else
                 out = out + p.second;
             
-            xw->drawBigString(10+c*40, 25, out, 1);
+            xw->drawString(10+c*40, 25, out, 1);
             c++;
         }
     }
@@ -239,7 +239,7 @@ void GraphicsDisplay::p2Links(Player &player) {
         int c = 0;
         for (auto &p : p2Pieces)
         {
-            xw->drawBigString(10+c*40, 450, p.first + ": " + p.second, 1);
+            xw->drawString(10+c*40, 450, p.first + ": " + p.second, 1);
             c++;
         }
     } else { //Print what p2 knows about p1
@@ -260,7 +260,7 @@ void GraphicsDisplay::p2Links(Player &player) {
             else
                 out = out + p.second;
             
-            xw->drawBigString(10+c*40, 450, out, 1);
+            xw->drawString(10+c*40, 450, out, 1);
             c++;
         }
     }
