@@ -23,7 +23,6 @@
 #include "polarize.h"
 #include "scan.h"
 #include "graphicsDisplay.h"
-
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -76,7 +75,6 @@ int main(int argc, char *argv[])
 
             for (int j = 0; j < 5; ++j)
             {
-                //check what each ability is a display for now, eventually we will add to abilities array
                 if (a[j] == 'L')
                 {
                     abilityCount['L']++;
@@ -85,16 +83,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "link boost ";
+
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Linkboost{&p1, &p2});
                         p1Abilities.emplace_back("Link boost");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Linkboost{&p2, &p1});
                         p2Abilities.emplace_back("Link boost");
                     }
@@ -107,16 +103,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "firewall ";
+
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new FirewallAbility{&p1, &p2});
                         p1Abilities.emplace_back("Firewall");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new FirewallAbility{&p2, &p1});
                         p2Abilities.emplace_back("Firewall");
                     }
@@ -129,16 +123,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "download ";
+
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Download{&p1, &p2});
                         p1Abilities.emplace_back("Download");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Download{&p2, &p1});
                         p2Abilities.emplace_back("Download");
                     }
@@ -151,16 +143,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "scan ";
+
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Scan{&p1, &p2});
                         p1Abilities.emplace_back("Scan");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Scan{&p2, &p1});
                         p2Abilities.emplace_back("Scan");
                     }
@@ -173,16 +163,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "polarize ";
+
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Polarize{&p1, &p2});
                         p1Abilities.emplace_back("Polarize");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Polarize{&p2, &p1});
                         p2Abilities.emplace_back("Polarize");
                     }
@@ -198,13 +186,11 @@ int main(int argc, char *argv[])
                     cout << "teleport ";
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Teleport{&p1, &p2});
                         p1Abilities.emplace_back("Teleport");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Teleport{&p2, &p1});
                         p2Abilities.emplace_back("Teleport");
                     }
@@ -217,16 +203,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "steal ";
+                    
                     if (command == "-ability1")
                     {
-                        cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Steal{&p1, &p2});
                         p1Abilities.emplace_back("Steal");
                     }
                     else if (command == "-ability2")
                     {
-                        cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Steal{&p2, &p1});
                         p2Abilities.emplace_back("Steal");
                     }
@@ -239,16 +223,14 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "strengthen ";
+            
                     if (command == "-ability1")
                     {
-                        //cout << "to player 1 in position " << j + 1 << endl;
                         p1.addAbility(new Strengthen{&p1, &p2});
                         p1Abilities.emplace_back("Strengthen");
                     }
                     else if (command == "-ability2")
                     {
-                        //cout << "to player 2 in position " << j + 1 << endl;
                         p2.addAbility(new Strengthen{&p2, &p1});
                         p2Abilities.emplace_back("Strengthen");
                     }
@@ -292,14 +274,12 @@ int main(int argc, char *argv[])
 
                     ++linkCount["D" + to_string(strength)];
 
-                    if (command == "-link1")  //use a static cast
+                    if (command == "-link1")  
                     {
-                        //cout << "Setting player 1's " << which << " to data with strength " << strength << endl;
                         p1.addPiece(string(1, which), new Data{1, Point{j / 2, (j == 6 || j == 8 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
-                        //cout << "Setting player 2's " << which << " to data with strength " << strength << endl;
                         p2.addPiece(string(1, which), new Data{1, Point{j / 2, (j == 6 || j == 8 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
@@ -314,12 +294,10 @@ int main(int argc, char *argv[])
 
                     if (command == "-link1")
                     {
-                        //cout << "Setting player 1's " << which << " to virus with strength " << strength << endl;
                         p1.addPiece(string(1, which), new Virus{1, Point{j / 2, (j == 6 || j == 8 ? 1 : 0)}, &p1, strength}, players);
                     }
                     else if (command == "-link2")
                     {
-                        //cout << "Setting player 2's " << which << " to virus with strength " << strength << endl;
                         p2.addPiece(string(1, which), new Virus{1, Point{j / 2, (j == 6 || j == 8 ? 6 : 7)}, &p2, strength}, players);
                     }
                     ++which;
@@ -346,8 +324,6 @@ int main(int argc, char *argv[])
 
         ++i;
     }
-
-    //cout << p1.pieceCount() << " p2: " << p2.pieceCount() << endl;
 
     //Default link setup for p1
     if (p1.pieceCount() < 8)
@@ -429,7 +405,7 @@ int main(int argc, char *argv[])
         //Game over
         if (p2.getVirusCount() > 3 || p1.getDataCount() > 3 || p1.getVirusCount() > 3 || p2.getDataCount() > 3) {
             g->gameOver(players);
-            break;
+            //break;
         }
         
         if (inFile.eof())
