@@ -8,9 +8,9 @@
 
 class FirewallAbility : public Ability
 {
-    public:
-        FirewallAbility(Player*, Player*);
-        void use(std::istream& in) override;
+public:
+    FirewallAbility(Player *, Player *);
+    void use(std::istream &in) override;
 };
 
 #endif

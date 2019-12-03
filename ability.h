@@ -6,12 +6,12 @@ class Player;
 
 class Ability
 {
-    protected:
+protected:
     Player *owner;
     Player *other;
-    
-    public:
-    Ability(Player*, Player*);
+
+public:
+    Ability(Player *, Player *);
     virtual ~Ability() = 0;
     virtual void use(std::istream &in) = 0;
 };

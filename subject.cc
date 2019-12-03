@@ -18,11 +18,16 @@ void Subject::detach(Observer *o)
 
 void Subject::notifyObservers()
 {
-    for (auto &ob : observers) {
-        if (ob) {
-            try {
+    for (auto &ob : observers)
+    {
+        if (ob)
+        {
+            try
+            {
                 ob->notify(*this);
-            } catch (InvalidMove) {
+            }
+            catch (InvalidMove)
+            {
                 return;
             }
         }

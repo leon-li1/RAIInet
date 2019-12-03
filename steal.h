@@ -5,9 +5,9 @@
 
 class Player;
 
-class Steal: public Ability
+class Steal : public Ability
 {
-    public:
+public:
     Steal(Player *owner, Player *other);
     void use(std::istream &in) override;
 };

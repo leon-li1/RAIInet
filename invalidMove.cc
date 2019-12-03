@@ -3,6 +3,7 @@
 
 InvalidMove::InvalidMove(std::string what) : err{what} {}
 
-std::string InvalidMove::what() {
-  return err;  
+std::string InvalidMove::what()
+{
+  return err;
 }

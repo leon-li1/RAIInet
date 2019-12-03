@@ -13,8 +13,9 @@ void FirewallAbility::use(std::istream &in)
     Point p;
     in >> p;
     std::vector<Player *> players{owner, other};
-    
-    if (owner->getEdge().getDir() == Direction::Down) { //owner is p1
+
+    if (owner->getEdge().getDir() == Direction::Down)
+    { //owner is p1
         if (owner->getPiece("M1"))
             owner->addPiece("M2", new Firewall{p, owner}, players);
         else

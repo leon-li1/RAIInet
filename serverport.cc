@@ -9,7 +9,8 @@ Serverport::Serverport(Point pos, Player *owner) : Piece{pos, owner} {}
 void Serverport::notify(Subject &whoFrom)
 {
     // if its your piece, invalid move
-    if (getPos() == whoFrom.getPos()) {
+    if (getPos() == whoFrom.getPos())
+    {
         if (getOwner() == whoFrom.getOwner())
         {
             throw InvalidMove{"You can't download your own piece on your serverport"};

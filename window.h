@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 
-class Xwindow {
+class Xwindow
+{
 	Display *d;
 	Window w;
 	int s;
@@ -12,23 +13,34 @@ class Xwindow {
 	unsigned long colours[11];
 	int width, height;
 
-	public:
-	Xwindow(int width=500, int height=500);  // Constructor; displays the window.
-	~Xwindow();                              // Destructor; destroys the window.
+public:
+	Xwindow(int width = 500, int height = 500); // Constructor; displays the window.
+	~Xwindow();									// Destructor; destroys the window.
 
-	enum { White = 0, Black, Red, Green, Blue, Cyan, Yellow, Magenta,
-		Orange, Brown, DarkGreen }; // Available colours.
-
+	enum
+	{
+		White = 0,
+		Black,
+		Red,
+		Green,
+		Blue,
+		Cyan,
+		Yellow,
+		Magenta,
+		Orange,
+		Brown,
+		DarkGreen
+	}; // Available colours.
 
 	// Draws a string
 	void drawString(int x, int y, std::string msg, int colour = Black);
 	void drawBigString(int x, int y, std::string msg, int colour = Black);
 
 	// if you use this function, make sure font exists on the undergrad environment
-  void drawStringFont(int x, int y, std::string msg, std::string font, int colour = Black);
+	void drawStringFont(int x, int y, std::string msg, std::string font, int colour = Black);
 
 	// Draws a rectangle
-	void fillRectangle(int x, int y, int width, int height, int colour=Black);
+	void fillRectangle(int x, int y, int width, int height, int colour = Black);
 
 	// Draw a polygon with the first vertex at (x, y) with num vertices, side length side
 	//     and rotated rotate radians. The second vertex is (x + side, y) rotated by
@@ -43,14 +55,14 @@ class Xwindow {
 	void drawArc(int x, int y, int width, int height, int angle1, int angle2);
 
 	void fillArc(int x, int y, int width, int height, int angle1, int angle2,
-			int colour);
+				 int colour);
 	// Draws a circle centered at (x, y) with diameter d
 	void fillCircle(int x, int y, int d, int colour = Black);
 
-  void showAvailableFonts();
+	void showAvailableFonts();
 
- private:
-  void printMessage(int x, int y, const std::string& msg, int colour, XFontStruct& f);
+private:
+	void printMessage(int x, int y, const std::string &msg, int colour, XFontStruct &f);
 };
 
 #endif

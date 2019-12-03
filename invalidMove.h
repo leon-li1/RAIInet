@@ -6,7 +6,7 @@ class InvalidMove
 {
     std::string err;
 
-    public:
+public:
     InvalidMove(std::string what);
     std::string what();
 };

@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     //Whether to use text graphics or not
     bool textgraphics = true;
-    
+
     int i = 0;
     // Loop through arguments
     while (i < argc)
@@ -57,17 +57,17 @@ int main(int argc, char *argv[])
             //This is to keep track of how many of each ability has been taken
             //When we load abilites in, if any player tries to take more than 2, game will throw an error
             map<char, int> abilityCount;
-            abilityCount['L'] = 0;  //Linkboost
-            abilityCount['F'] = 0;  //Firewall
-            abilityCount['D'] = 0;  //Download
-            abilityCount['S'] = 0;  //Scan
-            abilityCount['P'] = 0;  //Polarize
-            abilityCount['T'] = 0;  //Teleport
-            abilityCount['R'] = 0;  //Steal
-            abilityCount['G'] = 0;  //Strengthen
+            abilityCount['L'] = 0; //Linkboost
+            abilityCount['F'] = 0; //Firewall
+            abilityCount['D'] = 0; //Download
+            abilityCount['S'] = 0; //Scan
+            abilityCount['P'] = 0; //Polarize
+            abilityCount['T'] = 0; //Teleport
+            abilityCount['R'] = 0; //Steal
+            abilityCount['G'] = 0; //Strengthen
 
             string a = argv[i + 1];
-            if ((int) a.length() != 5)
+            if ((int)a.length() != 5)
             {
                 cerr << "Error: You must take 5 abilities" << endl;
                 return 1;
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    
+
                     if (command == "-ability1")
                     {
                         p1.addAbility(new Steal{&p1, &p2});
@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-            
+
                     if (command == "-ability1")
                     {
                         p1.addAbility(new Strengthen{&p1, &p2});
@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
 
                     ++linkCount["D" + to_string(strength)];
 
-                    if (command == "-link1")  
+                    if (command == "-link1")
                     {
                         p1.addPiece(string(1, which), new Data{1, Point{j / 2, (j == 6 || j == 8 ? 1 : 0)}, &p1, strength}, players);
                     }
@@ -352,7 +352,8 @@ int main(int argc, char *argv[])
     }
 
     //Default abilites
-    if (p1.abilityCount() == 0) { //player 1 defaults
+    if (p1.abilityCount() == 0)
+    { //player 1 defaults
         p1.addAbility(new Linkboost{&p1, &p2});
         p1.addAbility(new FirewallAbility{&p1, &p2});
         p1.addAbility(new Download{&p1, &p2});
@@ -365,7 +366,8 @@ int main(int argc, char *argv[])
         p1Abilities.emplace_back("Polarize");
     }
 
-    if (p2.abilityCount() == 0) { //player 2 defaults
+    if (p2.abilityCount() == 0)
+    { //player 2 defaults
         p2.addAbility(new Linkboost{&p2, &p1});
         p2.addAbility(new FirewallAbility{&p2, &p1});
         p2.addAbility(new Download{&p2, &p1});
@@ -380,9 +382,12 @@ int main(int argc, char *argv[])
 
     //Create graphics
     Graphics *g;
-    if (textgraphics) {
+    if (textgraphics)
+    {
         g = new TextDisplay{players, p1Abilities, p2Abilities};
-    } else {
+    }
+    else
+    {
         g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
     }
 
@@ -403,31 +408,35 @@ int main(int argc, char *argv[])
     while (true)
     {
         //Game over
-        if (p2.getVirusCount() > 3 || p1.getDataCount() > 3 || p1.getVirusCount() > 3 || p2.getDataCount() > 3) {
+        if (p2.getVirusCount() > 3 || p1.getDataCount() > 3 || p1.getVirusCount() > 3 || p2.getDataCount() > 3)
+        {
             g->gameOver(players);
             //break;
         }
-        
+
         if (inFile.eof())
             mode = "cin";
 
-        if (cin.eof()) 
+        if (cin.eof())
             break;
 
-        if (mode == "cin") {
+        if (mode == "cin")
+        {
 
             cin >> command;
-
-        } else if (mode == "sequence") {
+        }
+        else if (mode == "sequence")
+        {
 
             inFile >> command;
 
-            if (inFile.fail()) {
+            if (inFile.fail())
+            {
                 mode = "cin";
                 continue;
             }
         }
-        
+
         if (command == "move")
         {
             string which;
@@ -438,24 +447,22 @@ int main(int argc, char *argv[])
                 cin >> which;
                 cin >> direction;
 
-                if (cin.eof()) 
+                if (cin.eof())
                 {
                     cerr << "Invalid direction" << endl;
                     continue;
                 }
-
             }
             else if (mode == "sequence")
             {
                 inFile >> which;
                 inFile >> direction;
-            
-                if (inFile.eof()) 
+
+                if (inFile.eof())
                 {
                     cerr << "Invalid direction" << endl;
                     continue;
                 }
-
             }
 
             Direction d;
@@ -475,7 +482,9 @@ int main(int argc, char *argv[])
             else if (direction == "right")
             {
                 d = Direction::Right;
-            } else {
+            }
+            else
+            {
                 cerr << "Invalid direction" << endl;
                 continue;
             }
@@ -483,7 +492,7 @@ int main(int argc, char *argv[])
             try
             {
                 if (turn == "p1")
-                    p1.move(which, d); 
+                    p1.move(which, d);
                 else if (turn == "p2")
                     p2.move(which, d);
             }
@@ -497,7 +506,7 @@ int main(int argc, char *argv[])
             if (turn == "p1")
                 g->update(p1);
             else if (turn == "p2")
-                g->update(p2);            
+                g->update(p2);
             usedAbility = false;
         }
         else if (command == "abilities")
@@ -508,27 +517,32 @@ int main(int argc, char *argv[])
                 g->printAbilities(p2);
         }
         else if (command == "ability")
-        {   
+        {
             try
             {
                 int abNum;
-                if (mode == "cin") {
-                    if (!(cin >> abNum)) {
+                if (mode == "cin")
+                {
+                    if (!(cin >> abNum))
+                    {
                         cerr << "Invalid ability" << endl;
                         cin.clear();
                         cin.ignore();
                         continue;
                     }
-                } else if (mode == "sequence") {
-                    if (!(inFile >> abNum)) {
+                }
+                else if (mode == "sequence")
+                {
+                    if (!(inFile >> abNum))
+                    {
                         cerr << "Invalid ability" << endl;
                         inFile.clear();
                         inFile.ignore();
                         continue;
                     }
                 }
-                
-                if (!usedAbility) 
+
+                if (!usedAbility)
                 {
                     if (abNum < 1 || abNum > 5)
                     {
@@ -539,7 +553,7 @@ int main(int argc, char *argv[])
                     {
                         if (mode == "cin")
                             p1.useAbility(abNum - 1, cin);
-                        else if (mode == "sequence") 
+                        else if (mode == "sequence")
                             p1.useAbility(abNum - 1, inFile);
                     }
                     else if (turn == "p2")
@@ -550,7 +564,7 @@ int main(int argc, char *argv[])
                             p2.useAbility(abNum - 1, inFile);
                     }
                 }
-                else 
+                else
                 {
                     cerr << "You have already used an ability this turn" << endl;
                 }
@@ -575,9 +589,12 @@ int main(int argc, char *argv[])
             string file;
             cin >> file;
             inFile.open(file);
-            if (!inFile.fail()) {
+            if (!inFile.fail())
+            {
                 mode = "sequence";
-            } else {
+            }
+            else
+            {
                 cerr << "Invalid file name" << endl;
                 continue;
             }
@@ -585,15 +602,16 @@ int main(int argc, char *argv[])
         else if (command == "quit")
         {
             break;
-        } else if (command == "gameover") { //Only for testing and demonstration purposes
+        }
+        else if (command == "gameover")
+        { //Only for testing and demonstration purposes
             g->gameOver(players);
         }
-        else 
+        else
         {
             cerr << "Invalid command" << endl;
         }
         command = "";
-
     }
     delete g;
 }

@@ -4,19 +4,23 @@
 #include "player.h"
 #include "piece.h"
 
-TextDisplay::TextDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities) 
-: Graphics{players, p1Abilities, p2Abilities} {}
+TextDisplay::TextDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities)
+    : Graphics{players, p1Abilities, p2Abilities} {}
 
 void TextDisplay::update(Player &player)
 {
     //Update pieces array
-    for (auto &p : players[0]->pieces) {
-        if (p.second->getInfo() != "") {
+    for (auto &p : players[0]->pieces)
+    {
+        if (p.second->getInfo() != "")
+        {
             p1Pieces[p.first] = p.second->getInfo();
         }
     }
-    for (auto &p : players[1]->pieces) {
-        if (p.second->getInfo() != "") {
+    for (auto &p : players[1]->pieces)
+    {
+        if (p.second->getInfo() != "")
+        {
             p2Pieces[p.first] = p.second->getInfo();
         }
     }
@@ -36,10 +40,11 @@ void TextDisplay::update(Player &player)
     std::cout << "Abilities: " << abilityCount << std::endl;
 
     //Print p1's links
-    if (&player == players[0]) {
-    
+    if (&player == players[0])
+    {
+
         int c = 0;
-    
+
         for (auto &p : p1Pieces)
         {
             std::cout << p.first << ": " << p.second;
@@ -50,26 +55,28 @@ void TextDisplay::update(Player &player)
                 std::cout << "\t";
             c++;
         }
-    } else { //Print what p2 knows about p1
-    
+    }
+    else
+    { //Print what p2 knows about p1
+
         int c = 0;
-    
+
         for (auto &p : p1Pieces)
         {
             std::cout << p.first << ": ";
             bool unknown = true;
-            
-            for (auto &known : players[1]->knownPieces) 
+
+            for (auto &known : players[1]->knownPieces)
             {
-                if (p.first == known.first) 
+                if (p.first == known.first)
                     unknown = false;
             }
 
-            if (unknown) 
+            if (unknown)
                 std::cout << "?";
             else
                 std::cout << p.second;
-            
+
             if (c == 3 || c == 7)
                 std::cout << std::endl;
             else
@@ -112,10 +119,10 @@ void TextDisplay::update(Player &player)
 
     //Print known information about player 2
     std::cout << "Player " << 2 << ":" << std::endl;
-  
+
     //Print links downloaded
     std::cout << "Downloaded: " << players[1]->dataCount << "D, " << players[1]->virusCount << "V" << std::endl;
-   
+
     //Print abilities
     abilityCount = 0;
 
@@ -127,10 +134,11 @@ void TextDisplay::update(Player &player)
 
     std::cout << "Abilities: " << abilityCount << std::endl;
 
-    if (&player == players[1]) {
-        
+    if (&player == players[1])
+    {
+
         int c = 0;
-        
+
         for (auto &p : p2Pieces)
         {
             std::cout << p.first << ": " << p.second;
@@ -140,16 +148,19 @@ void TextDisplay::update(Player &player)
                 std::cout << "\t";
             c++;
         }
-    } else { //Print what player 1 knows about player 2
-        
+    }
+    else
+    { //Print what player 1 knows about player 2
+
         int c = 0;
 
         for (auto &p : p2Pieces)
         {
             std::cout << p.first << ": ";
-            
+
             bool unknown = true;
-            for (auto &known : players[0]->knownPieces) {
+            for (auto &known : players[0]->knownPieces)
+            {
                 if (p.first == known.first)
                     unknown = false;
             }
@@ -167,48 +178,60 @@ void TextDisplay::update(Player &player)
     }
 }
 
-void TextDisplay::printAbilities(Player &player) {
-    if (&player == players[0]) { //p1
-        
-        for (int i = 0; i < (int) p1Abilities.size(); i++) {
-            
+void TextDisplay::printAbilities(Player &player)
+{
+    if (&player == players[0])
+    { //p1
+
+        for (int i = 0; i < (int)p1Abilities.size(); i++)
+        {
+
             std::string used = "unavailable";
-            
+
             if (player.abilities[i])
                 used = "available";
-            
+
             std::cout << i + 1 << ":\t" << p1Abilities[i] << "\t";
 
             if (p1Abilities[i].length() < 8)
                 std::cout << "\t";
-            
+
             std::cout << used << std::endl;
         }
-    } else { //p2
-     
-        for (int i = 0; i < (int) p2Abilities.size(); i++) {
-            
+    }
+    else
+    { //p2
+
+        for (int i = 0; i < (int)p2Abilities.size(); i++)
+        {
+
             std::string used = "unavailable";
-            
+
             if (player.abilities[i])
                 used = "available";
-            
+
             std::cout << i + 1 << ":\t" << p2Abilities[i] << ":\t";
 
             if (p2Abilities[i].length() < 8)
                 std::cout << "\t";
-            
+
             std::cout << used << std::endl;
         }
     }
 }
 
-void TextDisplay::gameOver(std::vector<Player *> players) {
-    if (players[1]->getVirusCount() > 3 || players[0]->getDataCount() > 3) {    //Player 1 wins
+void TextDisplay::gameOver(std::vector<Player *> players)
+{
+    if (players[1]->getVirusCount() > 3 || players[0]->getDataCount() > 3)
+    { //Player 1 wins
         std::cout << "Player 1 wins" << std::endl;
-    } else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3) { //Player 2 wins
+    }
+    else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3)
+    { //Player 2 wins
         std::cout << "Player 2 wins" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Player 1 wins" << std::endl;
     }
 

@@ -3,7 +3,6 @@
 #include <string>
 #include "piece.h"
 
-
 class Serverport : public Piece
 {
 public:

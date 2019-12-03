@@ -5,9 +5,9 @@
 
 class Player;
 
-class Teleport: public Ability
+class Teleport : public Ability
 {
-    public:
+public:
     Teleport(Player *owner, Player *other);
     void use(std::istream &in) override;
 };

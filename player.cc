@@ -10,11 +10,14 @@
 
 Player::Player(Direction dir) : dataCount{0}, virusCount{0}, oppositeEdge{Edge{dir}} {}
 
-Player::~Player() {
-    for (auto &p : pieces) {
+Player::~Player()
+{
+    for (auto &p : pieces)
+    {
         delete p.second;
     }
-    for (auto &a : abilities) {
+    for (auto &a : abilities)
+    {
         delete a;
     }
 }
@@ -22,10 +25,12 @@ Player::~Player() {
 void Player::move(std::string pieceName, Direction direction)
 {
     bool inArray = false;
-    for (auto &p : pieces) {
-        if (p.first == pieceName) inArray = true;
+    for (auto &p : pieces)
+    {
+        if (p.first == pieceName)
+            inArray = true;
     }
-    if (!inArray) 
+    if (!inArray)
         throw InvalidMove{"You must move a link you own."};
 
     Piece *thePiece = pieces[pieceName];
@@ -57,9 +62,12 @@ bool Player::owns(Piece *piece)
 void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *> &players)
 {
     //add observers
-    for (auto &pl : players) {
-        for (auto &p : pl->pieces) {
-            if (p.second != piece) {
+    for (auto &pl : players)
+    {
+        for (auto &p : pl->pieces)
+        {
+            if (p.second != piece)
+            {
                 (p.second)->attach(piece);
                 piece->attach(p.second);
             }
@@ -70,7 +78,8 @@ void Player::addPiece(std::string pieceName, Piece *piece, std::vector<Player *>
     pieces[pieceName] = piece;
 }
 
-void Player::addAbility(Ability *ability) {
+void Player::addAbility(Ability *ability)
+{
     abilities.emplace_back(ability);
 }
 
@@ -87,17 +96,21 @@ std::string Player::getPieceName(Piece *piece)
 void Player::removePiece(Piece *piece, std::vector<Player *> players)
 {
     //Remove observers
-    for (auto &pl : players) {
-        for (auto &p : pl->pieces) {
+    for (auto &pl : players)
+    {
+        for (auto &p : pl->pieces)
+        {
             p.second->detach(piece);
         }
     }
-    
+
     //erase it from the map
-    for (auto &pl : players) {
+    for (auto &pl : players)
+    {
         for (auto &p : pl->pieces)
         {
-            if (p.second == piece) {
+            if (p.second == piece)
+            {
                 delete piece;
                 p.second = nullptr;
                 pieces.erase(p.first);
@@ -109,8 +122,10 @@ void Player::removePiece(Piece *piece, std::vector<Player *> players)
 
 void Player::download(Piece *piece)
 {
-    if (piece->getInfo()[0] == 'D') dataCount++;
-    else if (piece->getInfo()[0] == 'V') virusCount++;
+    if (piece->getInfo()[0] == 'D')
+        dataCount++;
+    else if (piece->getInfo()[0] == 'V')
+        virusCount++;
 
     std::vector<Player *> ps;
     ps.emplace_back(this);
@@ -134,45 +149,55 @@ void Player::addKnownPiece(std::string pieceName, std::string info)
     knownPieces[pieceName] = info;
 }
 
-Edge Player::getEdge() {
+Edge Player::getEdge()
+{
     return oppositeEdge;
 }
 
-int Player::pieceCount() {
-    return (int) pieces.size();
+int Player::pieceCount()
+{
+    return (int)pieces.size();
 }
 
-std::string Player::getPieceInfo(std::string pieceName) {
+std::string Player::getPieceInfo(std::string pieceName)
+{
     return pieces[pieceName]->getInfo();
 }
 
-int Player::getVirusCount() {
+int Player::getVirusCount()
+{
     return virusCount;
 }
 
-int Player::getDataCount() {
+int Player::getDataCount()
+{
     return dataCount;
 }
 
-void Player::setVirusCount(int newCount) {
+void Player::setVirusCount(int newCount)
+{
     virusCount = newCount;
 }
 
-void Player::setDataCount(int newCount) {
+void Player::setDataCount(int newCount)
+{
     dataCount = newCount;
 }
 
-Piece *Player::getPiece(std::string pieceName) {
-    if (pieces.count(pieceName) > 0) 
+Piece *Player::getPiece(std::string pieceName)
+{
+    if (pieces.count(pieceName) > 0)
         return pieces[pieceName];
     else
         return nullptr;
 }
 
-void Player::setOther(Player *other) {
+void Player::setOther(Player *other)
+{
     this->other = other;
 }
 
-int Player::abilityCount() {
+int Player::abilityCount()
+{
     return (int)abilities.size();
 }

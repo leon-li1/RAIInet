@@ -4,7 +4,6 @@
 #include "window.h"
 #include "graphics.h"
 
-
 class Xwindow;
 class Player;
 
@@ -27,12 +26,12 @@ class GraphicsDisplay : public Graphics
     void p2Links(Player &player);
     void drawCell(bool turn, int x, int y, std::pair<std::string, std::string> info);
 
-    public:
-        GraphicsDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities);
-        ~GraphicsDisplay();
-        void update(Player &player) override;
-        void printAbilities(Player &player) override;
-        void gameOver(std::vector<Player *> players) override;
+public:
+    GraphicsDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities);
+    ~GraphicsDisplay();
+    void update(Player &player) override;
+    void printAbilities(Player &player) override;
+    void gameOver(std::vector<Player *> players) override;
 };
 
 #endif

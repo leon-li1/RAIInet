@@ -5,9 +5,9 @@
 
 class Player;
 
-class Strengthen: public Ability
+class Strengthen : public Ability
 {
-    public:
+public:
     Strengthen(Player *owner, Player *other);
     void use(std::istream &in) override;
 };

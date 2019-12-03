@@ -6,7 +6,8 @@
 
 Linkboost::Linkboost(Player *owner, Player *other) : Ability{owner, other} {}
 
-void Linkboost::use(std::istream &in) {
+void Linkboost::use(std::istream &in)
+{
     std::string pieceName;
     in >> pieceName;
 
@@ -16,5 +17,4 @@ void Linkboost::use(std::istream &in) {
 
     Piece *thePiece = owner->getPiece(pieceName);
     thePiece->setSpeed(thePiece->getSpeed() + 1);
-    
 }

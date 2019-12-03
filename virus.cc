@@ -7,7 +7,8 @@ Virus::Virus(int speed, Point pos, Player *owner, int strength) : Piece{pos, own
 
 void Virus::notify(Subject &whoFrom)
 {
-    if (&whoFrom == this) return;
+    if (&whoFrom == this)
+        return;
     if (whoFrom.getPos() == getPos())
     {
         if (getOwner() == whoFrom.getOwner())
@@ -66,4 +67,3 @@ std::string Virus::getInfo()
 {
     return "V" + std::to_string(strength);
 }
-
