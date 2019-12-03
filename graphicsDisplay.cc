@@ -58,6 +58,27 @@ void GraphicsDisplay::drawCell(bool turn, int x, int y, std::pair<std::string, s
 }
 
 void GraphicsDisplay::update(Player &player) {
+    //Update downloaded link counts
+    p1DCount = players[0]->dataCount;
+    p1VCount = players[0]->virusCount;
+    p2DCount = players[1]->dataCount;
+    p2VCount = players[1]->virusCount;
+
+    int abilityCount = 0;
+    for (auto &a : players[0]->abilities)
+    {
+        if (a)
+            ++abilityCount;
+    }
+    p1AbCount = abilityCount;
+
+    abilityCount = 0;
+    for (auto &a : players[1]->abilities)
+    {
+        if (a)
+            ++abilityCount;
+    }
+    p2AbCount = abilityCount;
     //Draw ability counts
     p1Ability();
     p2Ability();
@@ -190,12 +211,12 @@ void GraphicsDisplay::p2Ability() {
 }
 
 void GraphicsDisplay::p1LinkCount() {
-    xw->fillRectangle(250, 00, 200, 15, 0);
+    xw->fillRectangle(250, 0, 200, 15, 0);
     xw->drawString(250, 10, "Downloaded: " + std::to_string(p1DCount) + "D, " + std::to_string(p1VCount) + "V", 1);
 }
 
 void GraphicsDisplay::p2LinkCount() {
-    xw->fillRectangle(250, 420, 100, 15, 0);
+    xw->fillRectangle(250, 420, 200, 15, 0);
     xw->drawString(250, 430, "Downloaded: " + std::to_string(p2DCount) + "D, " + std::to_string(p2VCount) + "V", 1);
 }
 
