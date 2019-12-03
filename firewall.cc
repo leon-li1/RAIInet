@@ -15,7 +15,6 @@ void Firewall::notify(Subject &whoFrom)
             getOwner()->addKnownPiece(whoFrom.getOwner()->getPieceName((Piece *) &whoFrom), info);
 
             if (info.length() > 0 && info[0] == 'V') {
-                getOwner()->addKnownPiece(getOwner()->getPieceName((Piece *)&whoFrom), whoFrom.getInfo());
                 whoFrom.getOwner()->download((Piece *)&whoFrom);
                 throw InvalidMove{"Stop notifying"}; // We need to stop notifying now that the piece is gone
             }
