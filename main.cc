@@ -404,11 +404,11 @@ int main(int argc, char *argv[])
 
     //Create graphics
     Graphics *g;
-    if (textgraphics) 
+    if (textgraphics) {
         g = new TextDisplay{players, p1Abilities, p2Abilities};
-    // } else {
-    //     g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
-    // }
+    } else {
+        g = new GraphicsDisplay{players, p1Abilities, p2Abilities};
+    }
 
     // Create serverports
     p1.addPiece("S1", new Serverport{Point{3, 0}, &p1}, players);

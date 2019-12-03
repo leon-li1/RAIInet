@@ -17,7 +17,7 @@ class GraphicsDisplay : public Graphics
     int p1DCount = 0;
     int p2VCount = 0;
     int p2DCount = 0;
-    char board[8][8];
+    std::pair<std::string, std::string> board[8][8];
 
     void p1Ability();
     void p2Ability();
@@ -25,6 +25,7 @@ class GraphicsDisplay : public Graphics
     void p2LinkCount();
     void p1Links(Player &player);
     void p2Links(Player &player);
+    void drawCell(bool turn, int x, int y, std::pair<std::string, std::string> info);
 
     public:
         GraphicsDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities);

@@ -20,41 +20,62 @@ GraphicsDisplay::GraphicsDisplay(std::vector<Player *> players, std::vector<std:
     p1LinkCount();
     p2LinkCount();
 
-    //draw grid
-    for(int i = 0; i < 8; i++) {
-
-        for(int j = 0; j < 8; j++) {
-
-            if( (i + j) % 2 == 0){
-                xw->fillRectangle(25+i*40, 60+j*40, 40, 40, Xwindow::Magenta);
-            }
-            else {
-                xw->fillRectangle(25+i*40, 60+j*40, 40, 40, Xwindow::Cyan);
-            }
-        }
-    }
-
-    // initialize board to '.'
+    // initialize board to nullptr
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
-            board[i][j] = '.';
+            board[i][j] = std::pair<std::string, std::string>{".", ""};
     }
 
-    // overwrite '.' with pieces
+    // overwrite nullptr with pieces
     for (auto &pl : players)
     {
         for (auto &p : pl->pieces)
         {
             if (p.second)
-                board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
+                board[p.second->getPos().x][p.second->getPos().y] = std::pair<std::string, std::string>{std::string(1, p.first[0]), p.second->getInfo()};
         }
     }
 
     //Here we need to add the pieces being drawn on the board. 
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (j > 3) drawCell(false, i, j, board[i][j]);
+            else drawCell(true, i, j, board[i][j]);
+        }
+    }
 }
 
 GraphicsDisplay::~GraphicsDisplay(){ delete xw; }
+
+void GraphicsDisplay::drawCell(bool turn, int x, int y, std::pair<std::string, std::string> info) {
+    int colour;
+    if (turn) {
+        if (info.second[0] == 'D') {
+            colour = 3;
+        } else if (info.second[0] == 'V') {
+            colour = 2;
+        } else {
+            if ((x + y) % 2 == 0) {
+                colour = Xwindow::Magenta;
+            }
+            else {
+                colour = Xwindow::Cyan;
+            }
+        }
+    } else {
+        if ((x + y) % 2 == 0) {
+                colour = Xwindow::Magenta;
+            }
+            else {
+                colour = Xwindow::Cyan;
+            }
+    }
+    xw->fillRectangle(25+x*40, 60+y*40, 40, 40, colour); //Draw cell background
+    if (info.first != ".") {
+        xw->drawBigString(40+40*x, 80+40*y, info.first, 1);
+    }
+}
 
 void GraphicsDisplay::update(Player &player) {
     //Update pieces array
@@ -97,13 +118,30 @@ void GraphicsDisplay::update(Player &player) {
     p1Links(player);
     p2Links(player);
 
+    //Redraw pieces
     for (auto &pl : players)
     {
         for (auto &p : pl->pieces)
         {
-            if (p.second) {
-                board[p.second->getPos().x][p.second->getPos().y] = p.first[0];
-                //Here we need to check if the piece has been updated and if so, update it to the appropriate value
+            bool turn = false;
+            if (pl == &player) turn = true;
+            board[p.second->getPos().x][p.second->getPos().y] = std::pair<std::string, std::string>{std::string(1,p.first[0]), p.second->getInfo()};
+            drawCell(turn, p.second->getPos().x, p.second->getPos().y, board[p.second->getPos().x][p.second->getPos().y]);
+        }
+    }
+
+    //Redraw squares pieces moved from
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            bool pieceAt = false;
+            for (auto &pl : players) {
+                for (auto &p : pl->pieces) {
+                    if (p.second->getPos().x == i && p.second->getPos().y == j) pieceAt = true;
+                }
+            }
+            if (pieceAt == false && board[i][j].second != ".") {
+                board[i][j] = std::pair<std::string, std::string>{".", ""};
+                drawCell(false, i, j, board[i][j]);
             }
         }
     }
