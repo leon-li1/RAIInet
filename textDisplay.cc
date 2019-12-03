@@ -208,6 +208,8 @@ void TextDisplay::gameOver(std::vector<Player *> players) {
         std::cout << "Player 1 wins" << std::endl;
     } else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3) { //Player 2 wins
         std::cout << "Player 2 wins" << std::endl;
+    } else {
+        std::cout << "Player 1 wins" << std::endl;
     }
 
     std::cout << "Final score: " << std::endl;

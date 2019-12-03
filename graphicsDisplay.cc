@@ -8,18 +8,6 @@
 
 GraphicsDisplay::GraphicsDisplay(std::vector<Player *> players, std::vector<std::string> p1Abilities, std::vector<std::string> p2Abilities) 
 : Graphics{players, p1Abilities, p2Abilities}, xw{new Xwindow{}} {
-    //Draw player names
-    xw->drawBigString(10, 10, "Player 1:", 1);
-    xw->drawBigString(10, 430, "Player 2:", 1);
-    
-    //Draw ability counts
-    p1Ability();
-    p2Ability();
-
-    //Draw downloaded link count 
-    p1LinkCount();
-    p2LinkCount();
-
     // initialize board to nullptr
     for (int i = 0; i < 8; i++)
     {
@@ -34,14 +22,6 @@ GraphicsDisplay::GraphicsDisplay(std::vector<Player *> players, std::vector<std:
         {
             if (p.second)
                 board[p.second->getPos().x][p.second->getPos().y] = std::pair<std::string, std::string>{std::string(1, p.first[0]), p.second->getInfo()};
-        }
-    }
-
-    //Here we need to add the pieces being drawn on the board. 
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            if (j > 3) drawCell(false, i, j, board[i][j]);
-            else drawCell(true, i, j, board[i][j]);
         }
     }
 }
@@ -78,6 +58,20 @@ void GraphicsDisplay::drawCell(bool turn, int x, int y, std::pair<std::string, s
 }
 
 void GraphicsDisplay::update(Player &player) {
+    //Draw ability counts
+    p1Ability();
+    p2Ability();
+
+    //Draw downloaded link count 
+    p1LinkCount();
+    p2LinkCount();
+
+    //Redraw player names
+    xw->fillRectangle(0,0, 90, 18, 0);
+    xw->drawBigString(10, 10, "Player 1:", 1);
+    xw->fillRectangle(0,420, 90, 18, 0);
+    xw->drawBigString(10, 430, "Player 2:", 1);
+
     //Update pieces array
     for (auto &p : players[0]->pieces) {
         if (p.second->getInfo() != "") {
@@ -90,30 +84,6 @@ void GraphicsDisplay::update(Player &player) {
         }
     }
 
-    //Check if player 1's abilities need to be refreshed
-    int abilityCount = 0;
-    for (auto &a : players[0]->abilities)
-    {
-        if (a)
-            ++abilityCount;
-    }
-    if (abilityCount != p1AbCount) {
-        p1AbCount = abilityCount;
-        p1Ability();
-    }
-
-    //Check if player 2's abilities need to be refreshed
-    abilityCount = 0;
-    for (auto &a : players[1]->abilities)
-    {
-        if (a)
-            ++abilityCount;
-    }
-    if (abilityCount != p2AbCount) {
-        p2AbCount = abilityCount;
-        p2Ability();
-    }
-
     //Print each player's link
     p1Links(player);
     p2Links(player);
@@ -124,6 +94,20 @@ void GraphicsDisplay::update(Player &player) {
         for (auto &p : pl->pieces)
         {
             bool turn = false;
+            if (pl == players[0]) {
+                for (auto &known : players[1]->knownPieces) 
+                {
+                    if (p.first == known.first) 
+                        turn = true;
+                }
+            } else {
+                for (auto &known : players[0]->knownPieces) 
+                {
+                    if (p.first == known.first) 
+                        turn = true;
+                }
+            }
+            
             if (pl == &player) turn = true;
             board[p.second->getPos().x][p.second->getPos().y] = std::pair<std::string, std::string>{std::string(1,p.first[0]), p.second->getInfo()};
             drawCell(turn, p.second->getPos().x, p.second->getPos().y, board[p.second->getPos().x][p.second->getPos().y]);
@@ -150,11 +134,49 @@ void GraphicsDisplay::update(Player &player) {
 }
 
 void GraphicsDisplay::printAbilities(Player &player) {
-
+    xw->fillRectangle(0, 0, 500, 500, 0);
+    if (&player == players[0]) { //p1
+        for (int i = 0; i < (int) p1Abilities.size(); i++) {
+            std::string used = "unavailable";
+            if (player.abilities[i])
+                used = "available";
+            
+            xw->drawBigString(115, 150+i*40, std::to_string(i + 1), 1);
+            xw->drawBigString(165, 150+i*40, p1Abilities[i], 1);
+            xw->drawBigString(265, 150+i*40, used, 1);
+        }
+    } else { //p2
+        for (int i = 0; i < (int) p2Abilities.size(); i++) {
+            std::string used = "unavailable";   
+            if (player.abilities[i])
+                used = "available";
+            
+            xw->drawBigString(115, 150+i*40, std::to_string(i + 1), 1);
+            xw->drawBigString(165, 150+i*40, p2Abilities[i], 1);
+            xw->drawBigString(265, 150+i*40, used, 1);
+        }
+    }
 }
 
 void GraphicsDisplay::gameOver(std::vector<Player *> players) {
-    
+    xw->fillRectangle(0, 0, 500, 500, 0);
+
+    if (players[1]->getVirusCount() > 3 || players[0]->getDataCount() > 3) {    //Player 1 wins
+        xw->drawBigString(150, 150, "Player 1 wins!", 1);
+    } else if (players[0]->getVirusCount() > 3 || players[1]->getDataCount() > 3) { //Player 2 wins
+        xw->drawBigString(150, 150, "Player 2 wins!", 1);
+    } else { //Default so that we have something to show when demonstrating
+        xw->drawBigString(150, 150, "Player 1 wins!", 1);
+    }
+
+    xw->drawBigString(150, 200, "Final score: ", 1);
+
+    std::string d = "Downloaded: ";
+    xw->drawBigString(150, 250, "Player 1:", 1);
+    xw->drawBigString(150, 275, d + std::to_string(players[0]->dataCount) + "D, " + std::to_string(players[0]->virusCount) + "V", 1);
+
+    xw->drawBigString(150, 325, "Player 2:", 1);
+    xw->drawBigString(150, 350, d + std::to_string(players[1]->dataCount) + "D, " + std::to_string(players[1]->virusCount) + "V", 1);
 }
 
 void GraphicsDisplay::p1Ability() {

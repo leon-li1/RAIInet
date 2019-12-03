@@ -584,9 +584,6 @@ int main(int argc, char *argv[])
             {
                 cerr << im.what() << endl;
             }
-
-        
-        
         }
         else if (command == "board")
         {
@@ -612,7 +609,9 @@ int main(int argc, char *argv[])
         else if (command == "quit")
         {
             break;
-        } 
+        } else if (command == "gameover") { //Only for testing and demonstration purposes
+            g->gameOver(players);
+        }
         else 
         {
             cerr << "Invalid command" << endl;
