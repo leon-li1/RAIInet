@@ -183,7 +183,6 @@ int main(int argc, char *argv[])
                         cerr << "Invalid Ability setup, you cannot have more than 2 of the same ability" << endl;
                         return 1;
                     }
-                    cout << "teleport ";
                     if (command == "-ability1")
                     {
                         p1.addAbility(new Teleport{&p1, &p2});
@@ -498,7 +497,7 @@ int main(int argc, char *argv[])
             }
             catch (InvalidMove im)
             {
-                cout << im.what() << endl;
+                cerr << im.what() << endl;
                 continue;
             }
 
@@ -546,7 +545,7 @@ int main(int argc, char *argv[])
                 {
                     if (abNum < 1 || abNum > 5)
                     {
-                        cout << "Invalid ability" << endl;
+                        cerr << "Invalid ability" << endl;
                         continue;
                     }
                     if (turn == "p1")

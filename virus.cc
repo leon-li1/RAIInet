@@ -1,6 +1,7 @@
 #include "virus.h"
 #include "point.h"
 #include "invalidMove.h"
+#include "stopNotifying.h"
 #include "player.h"
 
 Virus::Virus(int speed, Point pos, Player *owner, int strength) : Piece{pos, owner}, strength{strength}, speed{speed} {}
@@ -14,7 +15,7 @@ void Virus::notify(Subject &whoFrom)
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
             //std::cout << whoFrom.getInfo() << " trying to move on " << getInfo() << std::endl;
-            throw InvalidMove{"Your trying to move on your own virus"};
+            throw InvalidMove{"Your trying to move on your own link"};
         }
         else
         {
@@ -28,7 +29,7 @@ void Virus::notify(Subject &whoFrom)
             if (strength > whoFrom.getStrength())
             {
                 getOwner()->download((Piece *)&whoFrom);
-                throw InvalidMove{"Stop notifying"}; // We need to stop notifying now that the piece is gone
+                throw StopNotifying{}; // We need to stop notifying now that the piece is gone
             }
             else if (strength < whoFrom.getStrength())
             {

@@ -1,6 +1,7 @@
 #include <string>
 #include "firewall.h"
 #include "invalidMove.h"
+#include "stopNotifying.h"
 #include "player.h"
 
 Firewall::Firewall(Point pos, Player *owner) : Piece(pos, owner) {}
@@ -17,7 +18,7 @@ void Firewall::notify(Subject &whoFrom)
             if (info.length() > 0 && info[0] == 'V')
             {
                 whoFrom.getOwner()->download((Piece *)&whoFrom);
-                throw InvalidMove{"Stop notifying"}; // We need to stop notifying now that the piece is gone
+                throw StopNotifying{}; // We need to stop notifying now that the piece is gone
             }
         }
     }

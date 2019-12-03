@@ -1,6 +1,7 @@
 #include <string>
 #include "data.h"
 #include "invalidMove.h"
+#include "stopNotifying.h"
 #include "player.h"
 #include "point.h"
 
@@ -15,7 +16,7 @@ void Data::notify(Subject &whoFrom)
     {
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
-            throw InvalidMove{"Your trying to move on your own data"};
+            throw InvalidMove{"Your trying to move on your own link"};
         }
         else
         {
@@ -29,7 +30,7 @@ void Data::notify(Subject &whoFrom)
             if (strength > whoFrom.getStrength())
             {
                 getOwner()->download((Piece *)&whoFrom);
-                throw InvalidMove{"Stop notifying"}; // We need to stop notifying now that the piece is gone
+                throw StopNotifying{}; // We need to stop notifying now that the piece is gone
             }
             else if (strength < whoFrom.getStrength())
             {
