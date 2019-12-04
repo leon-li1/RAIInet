@@ -15,7 +15,7 @@ void Virus::notify(Subject &whoFrom)
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
             //std::cout << whoFrom.getInfo() << " trying to move on " << getInfo() << std::endl;
-            throw InvalidMove{"Your trying to move on your own link"};
+            throw InvalidMove{"You're trying to move on your own link"};
         }
         else
         {

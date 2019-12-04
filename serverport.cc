@@ -1,6 +1,7 @@
 #include "serverport.h"
 #include "piece.h"
 #include "invalidMove.h"
+#include "stopNotifying.h"
 #include "player.h"
 #include "point.h"
 
@@ -18,7 +19,7 @@ void Serverport::notify(Subject &whoFrom)
         else // if not, download it to the piece's owner
         {
             getOwner()->download((Piece *)&whoFrom);
-            throw InvalidMove{"Stop notifying"}; // We need to stop notifying now that the piece is gone
+            throw StopNotifying{}; // We need to stop notifying now that the piece is gone
             //std::cout << "download by server port" << std::endl;
         }
     }

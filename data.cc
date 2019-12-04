@@ -16,7 +16,7 @@ void Data::notify(Subject &whoFrom)
     {
         if (getOwner() == whoFrom.getOwner())
         { //Cannot move on top of your own piece
-            throw InvalidMove{"Your trying to move on your own link"};
+            throw InvalidMove{"You're trying to move on your own link"};
         }
         else
         {
